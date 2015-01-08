@@ -1,0 +1,72 @@
+#!/bin/bash
+# configuration variables
+refresh_rate=0              # how often will the bar update
+
+COLOR_INACTIVE="#ff191919"
+COLOR_ACTIVE="#FFFFFFFF"
+COLOR_OCCUPIED="#ff4c4c4c"
+COLOR_URGENT="#ffFF0000"
+
+WORKSPACES=10
+BLOCK=""
+BLOCK_SIZE=8 #How many pixels does BLOCK take?
+
+#Calculates how many blocks per bar
+dWidth="$(xrandr | grep '*')"
+dWidth="$(echo "${dWidth%%x*}" | sed 's/^ *//')"
+dWidth="$(echo "$dWidth/($BLOCK_SIZE*$WORKSPACES)" | bc)"
+
+#Adds BLOCKs to BAR based on dWidth
+for ((i=1; i<$dWidth; i++)); do
+	BAR+="$BLOCK"
+done
+
+#BAR=""
+
+# This loop will fill a buffer with our infos, and output it to stdout.
+FIFO=/home/ethan/var/PANEL_FIFO
+[ -e "$FIFO" ] && rm "$FIFO"
+mkfifo "$FIFO"
+
+#Sends status of workspaces to named pipe
+bspc control --subscribe > "$FIFO" &
+
+#Colors the bar based on whether the space is active
+cat "$FIFO" | while read -r line ; do
+    wm_infos=' '
+    IFS=':'
+    set -- ${line#?}
+    while [ $# -gt 0 ] ; do
+        item=$1
+        name=${item#?}
+        case $item in
+            [OFU]*)
+                # active desktop
+                wm_infos="$wm_infos%{F$COLOR_ACTIVE}$BAR "
+                ;;
+            o*)
+                # inactive but occupied desktop
+                wm_infos="$wm_infos%{F$COLOR_OCCUPIED}$BAR "
+                ;;
+            f*)
+                # inactive desktop
+                wm_infos="$wm_infos%{F$COLOR_INACTIVE}$BAR "
+                ;;
+            u*)
+                # urgent desktop
+                wm_infos="$wm_infos%{F$COLOR_URGENT}$BAR "
+                ;;
+	    m*)
+		# second moniter
+		break
+		;;
+        esac
+    shift
+    done
+    
+    echo $wm_infos
+    wm_infos=' '
+
+    sleep ${refresh_rate}
+done
+

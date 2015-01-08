@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+MIN=$1
+
+while [[ 0 -ne $MIN ]]; do
+    sleep 60
+    MIN=$[$MIN-1]
+done
+notify-send "Times Up!"

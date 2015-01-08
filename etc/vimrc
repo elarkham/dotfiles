@@ -1,0 +1,70 @@
+call pathogen#infect()                      " use pathogen
+call pathogen#runtime_append_all_bundles()  " use pathogen
+
+" ~Colors
+colorscheme dougblack " awesome colorscheme
+syntax enable         " enable syntax processing
+
+" ~Spaces and Tabs
+set tabstop=4       " number of visual spaces per TAB
+set softtabstop=4   " number of spaces in tab when editing
+set expandtab        "tabs are spaces
+
+" ~UI Config 
+set number              " show line numbers
+set showcmd             " show command in bottom bar
+set cursorline          " highlight current line
+filetype indent on      " load filetype-specific indent files
+set wildmenu            " visual autocomplete for command menu
+set lazyredraw          " redraw only when we need to.
+set showmatch           " highlight matching [{()}]
+
+" ~Searching
+set incsearch           " search as characters are entered
+set hlsearch            " highlight matches
+" turn off search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
+" ~Folding
+set foldenable          " enable folding
+set foldlevelstart=10   " open most folds by defaultset foldnestmax=10      " 10 nested fold max
+" space open/closes folds
+nnoremap <space> za
+set foldmethod=indent   " fold based on indent level
+
+" ~Movement
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
+
+" move to beginning/end of line
+nnoremap B ^
+nnoremap E $
+
+" $/^ doesn't do anything
+nnoremap $ <nop>
+nnoremap ^ <nop>
+
+" highlight last inserted text
+nnoremap gV `[v`]
+
+" ~Custom Keys
+let mapleader=","       " leader is comma
+
+" ~Tabs
+" CTRL-Tab is next tab
+noremap <C-Tab> :<C-U>tabnext<CR>
+
+" CTRL-SHIFT-Tab is previous tab
+noremap <C-S-Tab> :<C-U>tabprevious<CR>
+
+" NERDTree
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+""bind ctrl+n to NERDTree
+map <C-n> :NERDTreeToggle<CR>
+""Auto Opens NERDTree
+"autocmd vimenter * NERDTree
+
+"Tagbar
+nmap <F8> :TagbarToggle<CR>

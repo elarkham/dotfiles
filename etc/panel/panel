@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+EDGE_GAP=0
+HEIGHT=25
+
+width="$(xrandr | grep '*')"
+width="$(echo "${width%%x*}" | sed 's/^ *//')"
+
+barWidth="$(echo $width - $EDGE_GAP - $EDGE_GAP | bc )"
+
+#./mkbar | bar -p -g 870x"$(($HEIGHT - 5))"+$EDGE_GAP+$EDGE_GAP -f "-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*","-*-terminus-*-*-*-*-*-*-*-*-*-*-*-*" 
+
+/home/ethan/etc/panel/mkclock | bar -g "$barWidth"x20+$EDGE_GAP+6 -f "-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*","-*-terminus-*-*-*-*-*-*-*-*-*-*-*-*" & 
+
+/home/ethan/etc/panel/mkgroup | bar -p -g "$barWidth"x6+$EDGE_GAP+0 -f "-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*","-*-terminus-*-*-*-*-*-*-*-*-*-*-*-*" & 

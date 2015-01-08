@@ -1,0 +1,19 @@
+Host pudge
+    HostName elarkham.ssh.bz
+    Port 443
+    User ethan
+#    IdentityFile  ~/.ssh/id_example
+#    IdentitiesOnly yes
+
+Host cs415
+    HostName agate.cs.unh.edu
+    User ehl2000
+
+Host it403
+    HostName wcit.cs.unh.edu
+    User ehl2000
+
+Host clo
+    HostName 104.131.112.180
+    User ethan
+    Port 22
