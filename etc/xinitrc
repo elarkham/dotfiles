@@ -26,11 +26,11 @@ case $WM in
 		openbox			)exec openbox-session;;
 		bspwm			)exec sxhkd -c "/home/ethan/etc/bspwm/sxhkd/sxhkdrc" & exec bspwm -c "/home/ethan/etc/bspwm/bspwm/bspwmrc";;
 		xmonad			)exec dbus-launch xmonad;;
-		herbstluftwm    	)exec herbstluftwm;;
-    	        2bwm            	)2bwm & exec urxvt;;
+		herbstluftwm    )exec herbstluftwm;;
+    	2bwm            )2bwm & exec urxvt;;
 		awesome			)exec awesome;;
 		dwm 			)exec dwm;;
-		*			)exec sxhkd -c "/home/ethan/etc/bspwm/sxhkd/sxhkdrc" -f 100 & exec bspwm -c "/home/ethan/etc/bspwm/bspwm/bspwmrc";;
+		*			)exec sxhkd -c "/home/ethan/etc/bspwm/sxhkdrc" -f 100 & exec bspwm -c "/home/ethan/etc/bspwm/bspwmrc";;
 esac
 
 #/home/ethan/bin/startdwm &

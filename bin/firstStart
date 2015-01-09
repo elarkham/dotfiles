@@ -11,24 +11,15 @@ tar zxvf yaourt.tar.gz
 cd yaourt
 makepkg -si
 cd ..
+ln -s $HOME/etc/yaourtrc $HOME/.yaourtrc
 
 ## Config
 sudo touch "/etc/profile.d/xdgconfig.sh"
 sudo echo 'export XDG_CONFIG_HOME="$HOME/etc"' >> "/etc/profile.d/xdgconfig.sh"
 
-ln -s $HOME/etc/vim $HOME/.vim
-ln -s $HOME/etc/ssh $HOME/.ssh
-ln -s $HOME/etc/bashrc $HOME/.bashrc
-ln -s $HOME/etc/zshrc $HOME/.zshrc
-ln -s $HOME/etc/warprc $HOME/.warprc
-ln -s $HOME/etc/vimrc $HOME/.vimrc
-ln -s $HOME/etc/Xresources $HOME/.Xresources
-ln -s $HOME/etc/xinitrc $HOME/.xinitrc
-ln -s $HOME/etc/yaourtrc $HOME/.yaourtrc
-
 ## Fonts
 aurInstall="$aurInstall stlarch_font"
-pacInstall="terminus-font profont"
+pacInstall="$pacInstall terminus-font profont"
 
 ## Game
 aurInstall="$aurInstall wesnoth"
@@ -37,6 +28,7 @@ pacInstall="$pacInstall steam"
 ## Windows Manager
 aurInstall="$aurInstall bspwm sxhkd bar-aint-recursive"
 pacInstall="$pacInstall openbox"
+ln -s $HOME/etc/xinitrc $HOME/.xinitrc
 
 ## Music
 aurInstall="$aurInstall"
@@ -47,12 +39,14 @@ aurInstall="$aurInstall"
 pacInstall="$pacInstall mpv"
 
 ## Browser
-aurInstall="$aurInstall google-chrome-stable"
+aurInstall="$aurInstall google-chrome"
 pacInstall="$pacInstall dwb"
 
 ## Editor
 aurInstall="$aurInstall"
 pacInstall="$pacInstall vim"
+ln -s $HOME/etc/vim $HOME/.vim
+ln -s $HOME/etc/vimrc $HOME/.vimrc
 
 ## Xorg Utils
 aurInstall="$aurInstall"
@@ -61,23 +55,31 @@ pacInstall="$pacInstall xorg-apps"
 ## Terminal
 aurInstall="$aurInstall"
 pacInstall="$pacInstall rxvt-unicode"
+ln -s $HOME/etc/Xresources $HOME/.Xresources
 
-## Shell
-aurInstall="$aurInstall"
+## Shell pt1
 pacInstall="$pacInstall zsh"
-chsh -s /bin/zsh
 
-## SSH
+## SSH pt1
 pacInstall="$pacInstall openssh"
-ssh-keygen -t rsa -b 4096 -C "$(whoami)@$(hostname)-$(date -I)"
-ssh-copy-id -i ~/.ssh/id_rsa.pub pudge
 
 ## Mail
 pacInstall="$pacInstall fdm cronie"
 echo "*/15 * * * * fdm fetch >> $HOME/mail/fdm.log" | crontab
 
 
-## Finalize
+## Install
 sudo pacman -Sy $pacInstall
 yaourt -S $aurInstall
+
+## Shell pt2
+ln -s $HOME/etc/bashrc $HOME/.bashrc
+ln -s $HOME/etc/zshrc $HOME/.zshrc
+ln -s $HOME/etc/warprc $HOME/.warprc
+chsh -s /bin/zsh
+
+## SSH pt2
+ln -s $HOME/etc/ssh $HOME/.ssh
+ssh-keygen -t rsa -b 4096 -C "$(whoami)@$(hostname)-$(date -I)"
+ssh-copy-id -i ~/.ssh/id_rsa.pub pudge
 
