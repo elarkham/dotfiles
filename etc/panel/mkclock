@@ -10,11 +10,11 @@ alsactl=Master                  # which alsa channel to display
 battery=$(ls /sys/class/power_supply | grep BAT1)
 
 barch=''
+#barch=''
 barfg='%{F#ff888888}'
 barmg='%{F#ffffffff}'
 barbg='%{F#00888888}'
 
-# no need to modify anything else here
 
 clock() {
     date "+${datefmt}"
@@ -36,6 +36,7 @@ batteryCapacity() {
     BATC=/sys/class/power_supply/${battery}/capacity
     cat $BATC
 }
+
 batteryStatus() {
     BATS=/sys/class/power_supply/${battery}/status
     BATC=/sys/class/power_supply/${battery}/capacity
@@ -51,11 +52,80 @@ batteryStatus() {
     fi
 }
 
+cpuload() {
+    LINE=`ps -eo pcpu |grep -vE '^\s*(0.0|%CPU)' |sed -n '1h;$!H;$g;s/\n/ +/gp'`
+    echo `bc <<< $LINE`
+}
+
+memused() {
+    read t f <<< `grep -E 'Mem(Total|Free)' /proc/meminfo |awk '{print $2}'`
+    read b c <<< `grep -E '^(Buffers|Cached)' /proc/meminfo |awk '{print $2}'`
+    bc <<< "100 * ($t - $f - $c - $b) / $t"
+}
+
+netstate() {
+    test -n "`ip route`" && echo "connected" || echo "disconnected"
+}
+
+netip() {
+    case $1 in
+        local)
+            # local ip
+            ip addr show "enp2s0" | grep 'inet ' | awk '{print $2}'
+            ;;
+        *)
+            # extern ip 
+            cat "$HOME/var/externalip"
+            ;;
+    esac
+}
+
+getdevice(){
+	:
+}
+
+
+nowplaying() {
+    cur="$(mpc current)"
+    if test -n "$(mpc current)"; then
+        echo "$cur"
+    else
+        echo "- stopped -"
+    fi
+}
+
+muted() {
+    amixer get $alsactl | grep -o '\[off\]' >/dev/null && false || true
+}
+
+volume() {
+    amixer get $alsactl | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq
+}
+
+volumeStatus() {
+
+    if [[ "$(volume)" -lt 1 ]]; then
+        echo "${barmg} "
+    elif [[ "$(volume)" -lt 25 ]]; then
+        echo "${barmg} "
+    elif [[ "$(volume)" -lt 50 ]]; then
+        echo "${barmg} "
+    else 
+        echo "${barmg} "
+    fi
+}
+isUp() {
+   if (wget -O /dev/null -q "$1"); then 
+        echo "$2 %{F#ff00b300}"
+    else 
+        echo "$2 %{F#ffb30000}"
+    fi
+}
 makebar() {
     max=10
     cur=$(($1 / 10))
     
-    if [[ "$(batteryCapacity)" -lt 15 ]]; then    
+    if [[ "$(batteryCapacity)" -lt 15 ]] && test -n "${battery}"; then    
         barColor="%{F#ffFF0000}"
     else
         barColor="$barmg"
@@ -74,15 +144,22 @@ makebar() {
     echo "${bar}${barfg}"
 }
 while :; do
-    # Set icon depending on the interface that is up
+    buf="${buf}%{l}"
+    buf="${buf}${barmg}   ${barfg}$(netip local)"
+    buf="${buf}${barmg} ${barfg}$(netip)    "
+ 
     buf="${buf}%{r}"
+    buf="${buf}${barmg} ${barfg}$(nowplaying)${barmg}| "
     buf="${buf}${barmg}${barfg} $(checkupdates | wc -l)"
-    buf="${buf}${barmg}  ${barfg} $(volume) "
+    buf="${buf}${barmg}  ${barfg} $(volume) "
     buf="${buf}${barmg}${barfg} $(mails)"
 
     # Show battery status if there is a battery
     test -n "${battery}" &&
         buf="${buf} $(batteryStatus)${barfg} $(makebar   $(batteryCapacity)) "
+    #if not battery it instead display volume as a bar
+    test -n "${battery}" || 
+         buf="${buf} $(volumeStatus)${barfg} $(makebar   $(volume)) "
 
     buf="${buf}${barmg} ${barfg} $(clock)  "
     echo $buf
