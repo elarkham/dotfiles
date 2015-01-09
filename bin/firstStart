@@ -63,16 +63,15 @@ pacInstall="$pacInstall zsh"
 ## SSH pt1
 pacInstall="$pacInstall openssh"
 
-## Mail
+## Mail pt1
 pacInstall="$pacInstall fdm cronie"
-echo "*/15 * * * * fdm fetch >> $HOME/mail/fdm.log" | crontab
-
 
 ## Install
 sudo pacman -Sy $pacInstall
 yaourt -S $aurInstall
 
 ## Shell pt2
+echo "######-Change Default Shell-######"
 ln -s $HOME/etc/bashrc $HOME/.bashrc
 ln -s $HOME/etc/zshrc $HOME/.zshrc
 ln -s $HOME/etc/warprc $HOME/.warprc
@@ -82,4 +81,9 @@ chsh -s /bin/zsh
 ln -s $HOME/etc/ssh $HOME/.ssh
 ssh-keygen -t rsa -b 4096 -C "$(whoami)@$(hostname)-$(date -I)"
 ssh-copy-id -i ~/.ssh/id_rsa.pub pudge
+
+## Mail pt2
+echo "*/15 * * * * fdm fetch >> $HOME/mail/fdm.log" | crontab
+sudo systemctl enable cronie
+
 
