@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+PACMAN_UPDATES="$(checkupdates)"
+echo "$PACMAN_UPDATES" > "/home/ethan/var/pacman_updates"
+

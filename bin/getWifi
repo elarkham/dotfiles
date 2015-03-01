@@ -1,0 +1,13 @@
+#!/bin/env bash
+##Ethan Larkham
+##Mar 01 2015
+
+cd /sys/class/net
+devices=(*)
+
+for d in "${devices[@]}"; do
+    type="${d:0:3}"
+    if [[ "$type" == "wlp" ]]; then 
+        echo $d
+    fi
+done

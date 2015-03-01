@@ -1,0 +1,50 @@
+#!/bin/bash
+# configuration variables
+refresh_rate=0              # how often will the bar update
+
+COLOR_INACTIVE="#ff191919"
+COLOR_ACTIVE="#FFFFFFFF"
+COLOR_OCCUPIED="#ff4c4c4c"
+COLOR_URGENT="#ffFF0000"
+
+PIPE="/home/ethan/tmp/PANEL_FIFO"
+
+# This loop will fill a buffer with our infos, and output it to stdout.
+[ -e "$PIPE" ] && rm "$PIPE"
+mkfifo "$PIPE"
+
+bspc control --subscribe > "$PIPE" &
+
+cat "$PIPE" | while read -r line ; do
+    IFS=':'
+    set -- ${line#?}
+    while [ $# -gt 0 ] ; do
+        item=$1
+        name=${item#?}
+        case $item in
+            [OFU]*)
+                # active desktop
+                wm_infos="$wm_infos %{F$COLOR_ACTIVE}"
+                ;;
+            o*)
+                # inactive but occupied desktop
+                wm_infos="$wm_infos %{F$COLOR_OCCUPIED}"
+                ;;
+            f*)
+                # inactive desktop
+                wm_infos="$wm_infos %{F$COLOR_INACTIVE}"
+                ;;
+            u*)
+                # urgent desktop
+                wm_infos="$wm_infos %{F$COLOR_URGENT}"
+                ;;
+        esac
+    shift
+    done
+    
+    echo $wm_infos
+    wm_infos=''
+
+    sleep ${refresh_rate}
+done
+

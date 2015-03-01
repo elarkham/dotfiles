@@ -1,0 +1,99 @@
+#!/bin/bash
+
+# configuration variables
+refresh_rate=0.75               # how often will the bar update
+datefmt="%d %b %I:%M"         # date time format
+maildir=/home/ethan/mail/INBOX/new/  # where do new mails arrive ?
+alsactl=Master                  # which alsa channel to display
+#battery=BAT0                    # battery index
+# find battery name in a smart way
+battery=$(ls /sys/class/power_supply | grep BAT1)
+
+barch=''
+barfg='%{F#ff888888}'
+barmg='%{F#ffffffff}'
+barbg='%{F#00888888}'
+
+# no need to modify anything else here
+
+clock() {
+    date "+${datefmt}"
+}
+
+mails() {
+    fcount ${maildir}
+}
+
+todo() {
+    todoCount="$(cat /home/ethan/var/todo | wc -l)"
+    echo "$todoCount"
+}
+
+muted() {
+    amixer get $alsactl | grep -o '\[off\]' >/dev/null && false || true
+}
+
+volume() {
+    amixer get $alsactl | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq
+}
+
+batteryCapacity() {
+    BATC=/sys/class/power_supply/${battery}/capacity
+    cat $BATC
+}
+batteryStatus() {
+    BATS=/sys/class/power_supply/${battery}/status
+    BATC=/sys/class/power_supply/${battery}/capacity
+    
+    if [[ "$(cat $BATS)" == "Unknown" || "$(cat $BATS)" == "Charging" ]]; then
+        echo "${barmg} "
+    elif [[ "$(cat $BATC)" -lt 10 ]]; then
+        echo "${barmg} "
+    elif [[ "$(cat $BATC)" -lt 50 ]]; then
+        echo "${barmg} "
+    elif [[ "$(cat $BATS)" == "Discharging" ]]; then 
+        echo "${barmg} "
+    elif [[ "$(cat $BATS)" == "Unknown" ]]; then
+        echo "${barmg} "
+    fi
+}
+
+makebar() {
+    max=10
+    cur=$(($1 / 10))
+    
+    if [[ "$(batteryCapacity)" -lt 15 ]]; then    
+        barColor="%{F#ffFF0000}"
+    else
+        barColor="$barmg"
+    fi
+
+    bar="$barColor"
+
+    for v in $(seq 0 $((max - 1))); do
+        if [ "$v" -lt "$cur" ]; then
+            bar="${bar}${barColor}${barch}"
+        else
+            bar="${bar}${barfg}${barch}"
+        fi
+    done
+
+    echo "${bar}${barfg}"
+}
+while :; do
+    # Set icon depending on the interface that is up
+    buf="${buf}%{r}"
+    buf="${buf}${barmg}${barfg} $(todo)      "
+    buf="${buf}${barmg}${barfg} $(cat '/home/ethan/var/pacman_updates' | wc -l)"
+    buf="${buf}${barmg}  ${barfg} $(volume) "
+    buf="${buf}${barmg}${barfg} $(mails) "
+
+    # Show battery status if there is a battery (U DONT SAY)
+    test -n "${battery}" &&
+        buf="${buf}$(batteryStatus)${barfg} $(makebar   $(batteryCapacity)) "
+
+    buf="${buf}${barmg} ${barfg} $(clock)  "
+    echo $buf
+    buf=""
+    sleep ${refresh_rate}
+done

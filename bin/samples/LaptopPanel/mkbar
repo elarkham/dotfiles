@@ -1,0 +1,130 @@
+#!/bin/bash
+
+# configuration variables
+refresh_rate=1               # how often will the bar update
+alsactl=Master                  # which alsa channel to display
+
+barch=''
+barfg='%{F#ff888888}'
+barmg='%{F#ffffffff}'
+barbg='%{F#00888888}'
+
+# no need to modify anything else here
+cpuload() {
+    LINE=`ps -eo pcpu |grep -vE '^\s*(0.0|%CPU)' |sed -n '1h;$!H;$g;s/\n/ +/gp'`
+    echo `bc <<< $LINE`
+}
+
+memused() {
+    read t f <<< `grep -E 'Mem(Total|Free)' /proc/meminfo |awk '{print $2}'`
+    read b c <<< `grep -E '^(Buffers|Cached)' /proc/meminfo |awk '{print $2}'`
+    bc <<< "100 * ($t - $f - $c - $b) / $t"
+}
+
+netstate() {
+    test -n "`ip route`" && echo "connected" || echo "disconnected"
+}
+
+netip() {
+    case $1 in
+        local)
+            # local ip
+            ip addr show "$DEVICE" | grep 'inet ' | awk '{print $2}'
+            ;;
+        *)
+            # extern ip 
+            cat "/home/ethan/var/externalip"
+            ;;
+    esac
+}
+
+getdevice(){
+    if [[ $(ip addr show dev enp0s25 | grep "inet ") != "" ]]; then
+        ESSID="( wired )"
+        DEVICE="enp0s25"
+        CONNECTION_ICON=""
+    else
+        ESSID=$(iwconfig wlp3s0 |  awk -F '"' 'NR==1 {print $2}')
+        DEVICE="wlp3s0"        
+        CONNECTION_ICON=""
+    if [[ $ESSID = "" ]]; then
+        DEVICE=""
+        ICON=""
+    fi      
+    fi
+}
+
+
+nowplaying() {
+    cur=`mpc current`
+    # this line allow to choose whether the output will scroll or not
+    test "$1" = "scroll" && PARSER='skroll -n20 -d0.5 -r' || PARSER='cat'
+    test -n "$cur" && $PARSER <<< $cur || echo "- stopped -"
+}
+
+muted() {
+    amixer get $alsactl | grep -o '\[off\]' >/dev/null && false || true
+}
+
+volume() {
+    amixer get $alsactl | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq
+}
+
+isUp() {
+   if ping -c 1 "$1" &> /dev/null; then 
+        echo "$2 %{F#ff00b300}"
+    else 
+        echo "$2 %{F#ffb30000}"
+    fi
+}
+
+makebar() {
+    max=10
+    cur=$(($1 / 10))
+
+    bar="$barfg"
+
+    for v in $(seq 0 $((max - 1))); do
+        if [ "$v" -lt "$cur" ]; then
+            bar="${bar}${barmg}${barch}"
+        else
+            bar="${bar}${barfg}${barch}"
+        fi
+    done
+
+    echo "${bar}${barfg}"
+}
+
+while :; do
+    cur=`xprop -root _NET_CURRENT_DESKTOP | awk '{print $3}'`
+    getdevice
+    
+    if [[ "$cur" == 0 ]]; then   
+        buf="%{l} "
+        buf="${buf}${barmg}$CONNECTION_ICON ${barfg}$ESSID" 
+        buf="${buf}${barmg}   ${barfg}$(netip local)"
+        buf="${buf}${barmg} ${barfg}$(netip)    "
+        
+        buf="${buf}%{r}"
+        buf="${buf}$(isUp 'elarkham.ssh.bz' Pudge )     ${barfg}"
+        buf="${buf}$(isUp 'www.reddit.com' Reddit )     ${barfg}"
+        buf="${buf}$(isUp 'www.4chan.org' 4chan )${barfg}"
+        buf="${buf}     %{r}"
+    #elif [[ "$cur" == 1 || "$cur" == 2 ]]; the
+    else
+        buf="%{l} "
+        buf="${buf}${barmg}$CONNECTION_ICON ${barfg}$ESSID" 
+        buf="${buf}${barmg}  ${barfg}$(netip local)"
+        buf="${buf}${barmg} ${barfg}$(netip)    "         
+        
+        buf="${buf}%{r}"
+        buf="${buf}${barmg} ${barfg}$(nowplaying)        ${barmg}|     ${barfg}"
+        buf="${buf}$(isUp 'elarkham.ssh.bz' Pudge )     ${barfg}"
+        buf="${buf}     %{r}"
+    fi
+
+    echo $buf
+    buf=""    
+
+    sleep ${refresh_rate}
+done
