@@ -1,5 +1,5 @@
 Host pudge
-    HostName elarkham.ssh.bz
+    HostName larkham.li
     Port 443
     User ethan
 #    IdentityFile  ~/.ssh/id_example
