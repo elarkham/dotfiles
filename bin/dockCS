@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-sshfs ehl2000@agate.cs.unh.edu:/home/csu/ehl2000/cs415 /home/ethan/documents/cs415

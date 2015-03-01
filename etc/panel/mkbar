@@ -1,15 +1,65 @@
 #!/bin/bash
+##Ethan Larkham
+##Last Updated: Mar 01 2015
 
 # configuration variables
-refresh_rate=0               # how often will the bar update
-alsactl=Master                  # which alsa channel to display
+refresh_rate=0.1                     # how often will the bar update
+datefmt="%d %b %I:%M:%S"             # date time format
+maildir=/home/ethan/mail/INBOX/new/  # where do new mails arrive ?
+alsactl=Master                       # which alsa channel to display
+
+# find battery name in a smart way
+battery=$(ls /sys/class/power_supply | grep BAT1)
+battery2=$(ls /sys/class/power_supply | grep BAT0)
 
 barch=''
 barfg='%{F#ff888888}'
 barmg='%{F#ffffffff}'
 barbg='%{F#00888888}'
+red="%{F#ffFF0000}"
 
-# no need to modify anything else here
+
+clock() {
+    date "+${datefmt}"
+}
+
+mails() {
+    fcount ${maildir}
+}
+
+muted() {
+    amixer get $alsactl | grep -o '\[off\]' >/dev/null && false || true
+}
+
+volume() {
+    amixer get $alsactl | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq
+}
+
+batteryCapacity() {
+    BATC=/sys/class/power_supply/${battery}/capacity
+    cat $BATC
+}
+
+batteryStatus() {
+    BATS=/sys/class/power_supply/${battery}/status
+    BATC=/sys/class/power_supply/${battery}/capacity
+
+    #Charging ( One battery displays UNKOWN when charging )
+    if [[ "$(cat $BATS)" == "Unknown" ||
+          "$(cat $BATS)" == "Charging" ]]; then
+        echo "${barmg} "
+    #Less then 10
+    elif [[ "$(cat $BATC)" -lt 10 ]]; then
+        echo "${barmg} "
+    #Less then 50 
+    elif [[ "$(cat $BATC)" -lt 50 ]]; then
+        echo "${barmg} "
+    #Discharging from 100 < x < 50
+    elif [[ "$(cat $BATS)" == "Discharging" ]]; then 
+        echo "${barmg} "
+    fi
+}
+
 cpuload() {
     LINE=`ps -eo pcpu |grep -vE '^\s*(0.0|%CPU)' |sed -n '1h;$!H;$g;s/\n/ +/gp'`
     echo `bc <<< $LINE`
@@ -22,32 +72,34 @@ memused() {
 }
 
 netstate() {
-    test -n "`ip route`" && echo "connected" || echo "disconnected"
+    test -n "`ip route`" && echo "connected" || 
+                            echo "disconnected"
 }
+
 
 netip() {
     case $1 in
         local)
             # local ip
-            ip addr show "$DEVICE" | grep 'inet ' | awk '{print $2}'
+            ip addr show "$(getActiveNetDevice)" | 
+            grep 'inet ' | 
+            awk '{print $2}'
             ;;
         *)
             # extern ip 
-            #cat "/home/ethan/bin/external"
+            cat "$HOME/var/externalip"
             ;;
     esac
 }
 
-getdevice(){
-	:
-}
-
 
 nowplaying() {
-    cur=`mpc current`
-    # this line allow to choose whether the output will scroll or not
-    test "$1" = "scroll" && PARSER='skroll -n20 -d0.5 -r' || PARSER='cat'
-    test -n "$cur" && $PARSER <<< $cur || echo "- stopped -"
+    cur="$(mpc current)"
+    if test -n "$(mpc current)"; then
+        echo "$cur"
+    else
+        echo "- stopped -"
+    fi
 }
 
 muted() {
@@ -58,61 +110,52 @@ volume() {
     amixer get $alsactl | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq
 }
 
-isUp() {
-   if (wget -O /dev/null -q "$1"); then 
-        echo "$2 %{F#ff00b300}"
-    else 
-        echo "$2 %{F#ffb30000}"
+volumeStatus() {
+
+    if [[ "$(volume)" -lt 1 ]]; then
+        echo "${barmg} "
+    elif [[ "$(volume)" -lt 25 ]]; then
+        echo "${barmg} "
+    elif [[ "$(volume)" -lt 50 ]]; then
+        echo "${barmg} "
+    elif [[ "$(volume)" -lt 100 ]]; then
+        echo "${barmg} "
+    else
+        echo "${red} "
     fi
 }
 
-makebar() {
-    max=10
-    cur=$(($1 / 10))
-
-    bar="$barfg"
-
-    for v in $(seq 0 $((max - 1))); do
-        if [ "$v" -lt "$cur" ]; then
-            bar="${bar}${barmg}${barch}"
-        else
-            bar="${bar}${barfg}${barch}"
-        fi
-    done
-
-    echo "${bar}${barfg}"
+getDevice() {
+    if [[ "$(getActiveNetDevice)" == "$(getWired)" ]]; then
+        ESSID="( wired )"
+        CONNECTION_ICON=""
+    elif [[ "$(getActiveNetDevice)" == "$(getWifi)" ]]; then
+        ESSID=$(iwconfig "$(getWifi)" |  awk -F '"' 'NR==1 {print $2}')      
+        CONNECTION_ICON=""
+    else
+        ICON=""  
+    fi
 }
 
 while :; do
-    cur=`xprop -root _NET_CURRENT_DESKTOP | awk '{print $3}'`
-    getdevice
-    
-    if [[ "$cur" == 0 ]]; then   
-        buf="%{l} "
-        buf="${buf}${barmg}$CONNECTION_ICON ${barfg}$ESSID" 
-        buf="${buf}${barmg}   ${barfg}$(netip local)"
-        buf="${buf}${barmg} ${barfg}$(netip)    "
-        
-        buf="${buf}%{r}"
-        buf="${buf}$(isUp 'http://elarkham.ssh.bz/' Pudge )     ${barfg}"
-        #buf="${buf}$(isUp 'www.reddit.com' Reddit )     ${barfg}"
-        #buf="${buf}$(isUp 'http://www.4chan.org/' 4Chan )${barfg}"
-        buf="${buf}     %{r}"
-    #elif [[ "$cur" == 1 || "$cur" == 2 ]]; the
-    else
-        buf="%{l} "
-        buf="${buf}${barmg}$CONNECTION_ICON ${barfg}$ESSID" 
-        buf="${buf}${barmg}  ${barfg}$(netip local)"
-        buf="${buf}${barmg} ${barfg}$(netip)    "         
-        
-        buf="${buf}%{r}"
-        buf="${buf}${barmg} ${barfg}$(nowplaying)        ${barmg}|     ${barfg}"
-        buf="${buf}$(isUp 'http://elarkham.ssh.bz/' Pudge )     ${barfg}"
-        buf="${buf}     %{r}"
-    fi
+    getDevice
 
+    buf="${buf}%{l} "
+    buf="${buf}${barmg}$CONNECTION_ICON ${barfg}$ESSID" 
+    buf="${buf}${barmg}   ${barfg}$(netip local)"
+    buf="${buf}${barmg} ${barfg}$(netip)    "
+ 
+    buf="${buf}%{r}"
+    buf="${buf}${barmg}${barfg} $(checkupdates | wc -l)"
+    buf="${buf}$(volumeStatus)${barfg} $(volume) "
+    buf="${buf}${barmg}${barfg} $(mails)"
+
+    # Show battery status if there is a battery
+    test -n "${battery}" &&
+        buf="${buf}$(batteryStatus)${barfg} $(batteryCapacity)"'%%' 
+  
+    buf="${buf}${barmg} ${barfg} $(clock)  "
     echo $buf
-    buf=""    
-
-    #sleep ${refresh_rate}
+    buf=""
+    sleep ${refresh_rate}
 done
