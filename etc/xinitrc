@@ -21,7 +21,7 @@ xset fp rehash
 
 xsetroot -cursor_name left_ptr
 if [[ $(hostname) == leo ]]
-    hsetroot -fill '/home/ethan/usr/pictures/wallpapers/templeFall.png'
+    then setroot -fill '/home/ethan/usr/pictures/wallpapers/templeFall.png'
 else
     hsetroot -fill '/home/ethan/usr/pictures/wallpapers/bwbCross.jpg'
 fi
