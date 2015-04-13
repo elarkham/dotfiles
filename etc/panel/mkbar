@@ -9,13 +9,16 @@ maildir=/home/ethan/mail/INBOX/new/  # where do new mails arrive ?
 alsactl=Master                       # which alsa channel to display
 
 # find battery name in a stupid way
-battery=$(ls /sys/class/power_supply | grep BAT1)
+battery1=$(ls /sys/class/power_supply | grep BAT1)
 battery2=$(ls /sys/class/power_supply | grep BAT0)
 
 barch=''
 barfg='%{F#ff888888}'
+#barmg='%{F#ffffffff}'
+#barbg='%{F#00888888}'
+#barfg='%{F#ffffffff}'
 barmg='%{F#ffffffff}'
-barbg='%{F#00888888}'
+barbg='%{F#00838996}'
 red="%{F#ffFF0000}"
 green="%{F#ff33CC33}"
 
@@ -37,20 +40,20 @@ volume() {
 }
 
 batteryCapacity() {
-    BATC=/sys/class/power_supply/${battery}/capacity
-    if [[ $BATC -lt 7 ]]; then
+    BATC=/sys/class/power_supply/${battery1}/capacity
+    if [[ $(cat $BATC) -lt 7 ]]; then
         BATC=/sys/class/power_supply/${battery2}/capacity
     fi
     cat $BATC
 }
 
 batteryStatus() {
-    BATS=/sys/class/power_supply/${battery}/status
-    BATC=/sys/class/power_supply/${battery}/capacity
+    BATS=/sys/class/power_supply/${battery1}/status
+    BATC=/sys/class/power_supply/${battery1}/capacity
 
     batCol=${barfg}
 
-    if [[ $BATC -lt 6 ]]; then
+    if [[ $(cat $BATC) -lt 7 ]]; then
         BATC=/sys/class/power_supply/${battery2}/capacity
         BATS=/sys/class/power_supply/${battery2}/status
         batCol="$green"
@@ -164,7 +167,7 @@ while :; do
     buf="${buf}$(volumeStatus)${barfg} $(volume)%%"
 
     # Show battery status if there is a battery
-    test -n "${battery}" &&
+    test -n "${battery1}" &&
         buf="${buf}$(batteryStatus) $(batteryCapacity)"'%%' 
   
     buf="${buf}${barmg} ${barfg} $(clock)  "

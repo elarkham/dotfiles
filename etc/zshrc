@@ -52,7 +52,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/ethan/bin/:/home/ethan/bin/"
-export CLASSPATH=/home/ethan/bin/wheelsunh.jar:$CLASSPATH
+export CLASSPATH=/home/ethan/bin/cs416.jar:$CLASSPATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
