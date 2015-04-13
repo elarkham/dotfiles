@@ -20,8 +20,8 @@ xset +fp /usr/share/fonts/local
 xset fp rehash
 
 xsetroot -cursor_name left_ptr
-if [[ $(hostname) == leo ]]
-    then setroot -fill '/home/ethan/usr/pictures/wallpapers/templeFall.png'
+if [[ $(hostname) == leo ]]; then
+    hsetroot -fill '/home/ethan/usr/pictures/wallpapers/templeFall.png'
 else
     hsetroot -fill '/home/ethan/usr/pictures/wallpapers/bwbCross.jpg'
 fi

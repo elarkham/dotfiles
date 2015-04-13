@@ -95,4 +95,9 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub pudge
 echo "*/15 * * * * fdm fetch >> $HOME/mail/fdm.log" | crontab
 sudo systemctl enable cronie
 
+## Git
+ln -s $HOME/etc/gitconfig $HOME/.gitconfig
+ln -s $HOME/etc/gitignore $HOME/.gitignore
+ln -s $HOME/etc/gitmodules $HOME/.gitmodules
+
 
