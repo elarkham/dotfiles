@@ -173,5 +173,5 @@ while :; do
     buf="${buf}${barmg} ${barfg} $(clock)  "
     echo $buf
     buf=""
-    sleep ${refresh_rate}
+    #sleep ${refresh_rate}
 done
