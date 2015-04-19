@@ -84,3 +84,6 @@ export VISUAL=vim
 alias ncmpcpp="ncmpcpp -c '/home/ethan/etc/ncmpcpp/config'"
 alias mpd="mpd '/home/ethan/etc/mpd/mpd.conf'"
 alias ranger="ranger --confdir='/home/ethan/etc/ranger'"
+if hash nvim 2>/dev/null; then
+    alias vim="nvim"
+fi

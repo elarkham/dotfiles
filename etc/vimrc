@@ -1,5 +1,7 @@
-call pathogen#infect()                      " use pathogen
-"call pathogen#runtime_append_all_bundles()  " use pathogen
+call plug#begin()
+Plug 'itchyny/lightline.vim'
+Plug 'scrooloose/nerdtree'
+call plug#end()
 
 " ~Spaces and Tabs
 set tabstop=4       " number of visual spaces per TAB
@@ -44,7 +46,7 @@ noremap <C-Tab> :<C-U>bnext<CR>
 noremap <C-S-Tab> :<C-U>bprev<CR>
 
 "Msc Bindings
-nnoremap <F3> :set hlsearch!<CR> "Disable highlights
+nnoremap <F3> :set hlsearch!<CR> 
 
 " ~Hardmode
 noremap <Up> <NOP>
