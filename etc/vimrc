@@ -11,6 +11,10 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 call plug#end()
 
+" ~Backups
+set backupdir=/home/ethan/etc/vim/backups,.,/tmp
+set directory=.,./home/ethan/etc/vim/backups,/tmp
+
 " ~Spaces and Tabs
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing
@@ -30,10 +34,10 @@ autocmd BufReadPost * normal `"
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 " ~LightBar
 let g:lightline = {
@@ -59,7 +63,7 @@ nmap <F8> :TagbarToggle<CR>
 " ~ultisnips
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<ALT+tab>"
+let g:UltiSnipsExpandTrigger="<c-d>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
