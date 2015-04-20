@@ -1,13 +1,0 @@
-Machine dump for /home/ethan/Documents/Programming/May/Marie 2010/test.mex           Fri May 23 12:30:59 EDT 2014
-
-
-    PC:   100   MAR:   111      AC:  0003
-    IR:  7000   MBR:  0003   INPUT:  null  OUTPUT: null
-
-       Memory dump for addresses 100 through 11C
-
- 100:   1112   2113   1114   4117   2116   A000   1115   B113  
- 108:   2115   1113   3117   2113   1116   4117   2116   8800  
- 110:   9106   7000   0118   0119   0005   000A   0003   0001  
- 118:   000A   000F   0014   0019   001E  
-
