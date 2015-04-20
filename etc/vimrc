@@ -1,20 +1,39 @@
 call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Valloric/YouCompleteMe'
+Plug 'Raimondi/delimitMate'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/syntastic'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 call plug#end()
 
 " ~Spaces and Tabs
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing
 set expandtab        "tabs are spaces
+autocmd BufWritePre * %s/\s\+$//e
 
-" ~UI Config 
+" ~UI Config
 set number              " show line numbers
 set showcmd             " show command in bottom bar
 set cursorline          " highlight current line
 set wildmenu            " visual autocomplete for command menu
 set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
+autocmd BufReadPost * normal `"
+
+" ~Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " ~LightBar
 let g:lightline = {
@@ -25,13 +44,27 @@ let g:lightline = {
       \ }
 set laststatus=2
 
+" ~VimIndentGuides
+set background=light
+
 " ~NerdTree
 ""Close Tree if its the only buffer left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-map <C-n> :NERDTreeToggle<CR> "Map ctrl + n to nerdTree toggle
+" ^Map ctrl + n to nerdTree toggle
+map <C-n> :NERDTreeToggle<CR>
+
+" ~Tagbar
+nmap <F8> :TagbarToggle<CR>
+
+" ~ultisnips
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<ALT+tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " ~Syntax
-filetype plugin indent on      " load filetype-specific indent files
+"filetype plugin indent on      " load filetype-specific indent files
 syntax on                      " display syntax coloring
 
 " ~Searching
@@ -45,8 +78,9 @@ noremap <C-Tab> :<C-U>bnext<CR>
 " CTRL-SHIFT-Tab is previous tab
 noremap <C-S-Tab> :<C-U>bprev<CR>
 
-"Msc Bindings
-nnoremap <F3> :set hlsearch!<CR> 
+" ~Msc Bindings
+"Disables Highlight
+nnoremap <F3> :set hlsearch!<CR>
 
 " ~Hardmode
 noremap <Up> <NOP>
