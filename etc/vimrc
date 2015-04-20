@@ -30,10 +30,10 @@ autocmd BufReadPost * normal `"
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 " ~LightBar
 let g:lightline = {
@@ -59,7 +59,7 @@ nmap <F8> :TagbarToggle<CR>
 " ~ultisnips
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<ALT+tab>"
+let g:UltiSnipsExpandTrigger="<c-d>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
@@ -81,7 +81,7 @@ noremap <C-S-Tab> :<C-U>bprev<CR>
 " ~Msc Bindings
 "Disables Highlight
 nnoremap <F3> :set hlsearch!<CR>
-
+set backspace=2
 " ~Hardmode
 noremap <Up> <NOP>
 noremap <Down> <NOP>
