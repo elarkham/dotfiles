@@ -5,7 +5,7 @@ Host pudge
 #    IdentityFile  ~/.ssh/id_example
 #    IdentitiesOnly yes
 
-Host cs415
+Host agate
     HostName agate.cs.unh.edu
     User ehl2000
 
