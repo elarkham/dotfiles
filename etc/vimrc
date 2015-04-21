@@ -85,7 +85,7 @@ noremap <C-S-Tab> :<C-U>bprev<CR>
 " ~Msc Bindings
 "Disables Highlight
 nnoremap <F3> :set hlsearch!<CR>
-
+set backspace=2
 " ~Hardmode
 noremap <Up> <NOP>
 noremap <Down> <NOP>

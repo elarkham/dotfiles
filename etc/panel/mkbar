@@ -14,9 +14,6 @@ battery2=$(ls /sys/class/power_supply | grep BAT0)
 
 barch=''
 barfg='%{F#ff888888}'
-#barmg='%{F#ffffffff}'
-#barbg='%{F#00888888}'
-#barfg='%{F#ffffffff}'
 barmg='%{F#ffffffff}'
 barbg='%{F#00838996}'
 red="%{F#ffFF0000}"
@@ -66,11 +63,11 @@ batteryStatus() {
     #Less then 10
     elif [[ "$(cat $BATC)" -lt 10 ]]; then
         echo "${red} ${batCol}"
-    #Less then 50 
+    #Less then 50
     elif [[ "$(cat $BATC)" -lt 50 ]]; then
         echo "${barmg} ${batCol}"
     #Discharging from 100 < x < 50
-    elif [[ "$(cat $BATS)" == "Discharging" ]]; then 
+    elif [[ "$(cat $BATS)" == "Discharging" ]]; then
         echo "${barmg} ${batCol}"
     fi
 }
@@ -87,7 +84,7 @@ memused() {
 }
 
 netstate() {
-    test -n "`ip route`" && echo "connected" || 
+    test -n "`ip route`" && echo "connected" ||
                             echo "disconnected"
 }
 
@@ -96,12 +93,12 @@ netip() {
     case $1 in
         local)
             # local ip
-            ip addr show "$(getActiveNetDevice)" | 
-            grep 'inet ' | 
+            ip addr show "$(getActiveNetDevice)" |
+            grep 'inet ' |
             awk '{print $2}'
             ;;
         *)
-            # extern ip 
+            # extern ip
             cat "$HOME/var/externalip"
             ;;
     esac
@@ -145,10 +142,10 @@ getDevice() {
         ESSID="( wired )"
         CONNECTION_ICON=""
     elif [[ "$(getActiveNetDevice)" == "$(getWifi)" ]]; then
-        ESSID=$(iwconfig "$(getWifi)" |  awk -F '"' 'NR==1 {print $2}')      
+        ESSID=$(iwconfig "$(getWifi)" |  awk -F '"' 'NR==1 {print $2}')
         CONNECTION_ICON=""
     else
-        ICON=""  
+        ICON=""
     fi
 }
 
@@ -156,10 +153,10 @@ while :; do
     getDevice
 
     buf="${buf}%{l} "
-    buf="${buf}${barmg}$CONNECTION_ICON ${barfg}$ESSID" 
+    buf="${buf}${barmg}$CONNECTION_ICON ${barfg}$ESSID"
     buf="${buf}${barmg}   ${barfg}$(netip local)"
     buf="${buf}${barmg} ${barfg}$(netip)    "
- 
+
     buf="${buf}%{r}"
     buf="${buf}${barmg}${barfg} $(checkupdates | wc -l)    "
     buf="${buf}${barmg}${barfg} $(mails)"
@@ -168,8 +165,8 @@ while :; do
 
     # Show battery status if there is a battery
     test -n "${battery1}" &&
-        buf="${buf}$(batteryStatus) $(batteryCapacity)"'%%' 
-  
+        buf="${buf}$(batteryStatus) $(batteryCapacity)"'%%'
+
     buf="${buf}${barmg} ${barfg} $(clock)  "
     echo $buf
     buf=""
