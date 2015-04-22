@@ -25,10 +25,12 @@ autocmd BufWritePre * %s/\s\+$//e
 set number              " show line numbers
 set showcmd             " show command in bottom bar
 set cursorline          " highlight current line
+hi CursorLine term=bold cterm=bold guibg=White
 set wildmenu            " visual autocomplete for command menu
 set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
 autocmd BufReadPost * normal `"
+highlight Pmenu ctermfg=4 ctermbg=8
 
 " ~Syntastic
 set statusline+=%#warningmsg#
@@ -55,7 +57,7 @@ set background=light
 ""Close Tree if its the only buffer left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " ^Map ctrl + n to nerdTree toggle
-map <C-n> :NERDTreeToggle<CR>
+map <F2> :NERDTreeToggle<CR>
 
 " ~Tagbar
 nmap <F8> :TagbarToggle<CR>
@@ -85,6 +87,10 @@ noremap <C-S-Tab> :<C-U>bprev<CR>
 " ~Msc Bindings
 "Disables Highlight
 nnoremap <F3> :set hlsearch!<CR>
+"Sets Buffer Keys
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprevious<CR>
+"Fixes Backspace
 set backspace=2
 " ~Hardmode
 noremap <Up> <NOP>
