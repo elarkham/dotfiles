@@ -26,6 +26,7 @@ set wildmenu            " visual autocomplete for command menu
 set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
 autocmd BufReadPost * normal `"
+highlight Pmenu ctermfg=4 ctermbg=8
 
 " ~Syntastic
 set statusline+=%#warningmsg#
