@@ -18,6 +18,7 @@ fi
 
 xset +fp /usr/share/fonts/local
 xset fp rehash
+wmname LG3D
 
 xsetroot -cursor_name left_ptr
 if [[ $(hostname) == leo ]]; then
