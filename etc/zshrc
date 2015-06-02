@@ -44,14 +44,18 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git archlinux dirhistory sudo ) 
+plugins=(git archlinux dirhistory sudo )
 
 source $ZSH/config.sh
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/ethan/bin/:/home/ethan/bin/"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/ethan/bin/:/home/ethan/bin/:/usr/local/rvm/gems/ruby-2.0.0-p598/bin"
 export CLASSPATH=/home/ethan/bin/wheelsunh.jar:/home/ethan/bin/cs416.jar:$CLASSPATH
+
+if [[ "$(hostname)" == "pudge" ]]; then
+    export PATH="$PATH:/usr/local/rvm/gems/ruby-2.0.0-p598/bin"
+fi
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
