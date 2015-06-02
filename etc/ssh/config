@@ -4,6 +4,11 @@ Host pudge
     User ethan
 #    IdentityFile  ~/.ssh/id_example
 #    IdentitiesOnly yes
+#
+Host pudge-local
+    HostName 192.168.2.119
+    Port 443
+    user ethan
 
 Host agate
     HostName agate.cs.unh.edu

@@ -11,6 +11,10 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 call plug#end()
 
+" ~Backups
+set backupdir=/home/ethan/etc/vim/backups,.,/tmp
+set directory=.,./home/ethan/etc/vim/backups,/tmp
+
 " ~Spaces and Tabs
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing

@@ -20,8 +20,7 @@ else
     rm -r $HOME/bin/package-query
     rm $HOME/bin/package-query.tar.gz
     rm $HOME/bin/yaourt.tar.gz
-fi 
-
+fi
 ## Config
 sudo touch "/etc/profile.d/xdgconfig.sh"
 sudo echo 'export XDG_CONFIG_HOME="$HOME/etc"' | sudo tee "/etc/profile.d/xdgconfig.sh" > /dev/null
