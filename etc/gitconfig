@@ -2,7 +2,7 @@
 	name = Ethan Larkham
 	email = ethanlarkham@gmail.com
 [push]
-	default = simple
+	default = current
 [core]
 	autocrlf = input
 	safecrlf = true
