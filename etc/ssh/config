@@ -14,6 +14,12 @@ Host agate
     HostName agate.cs.unh.edu
     User ehl2000
 
+Host sal
+    ProxyCommand ssh -q pudge nc 192.168.2.5 22
+
+Host oniichan
+    ProxyCommand ssh -q pudge nc 192.168.2.2 22
+
 Host it403
     HostName wcit.cs.unh.edu
     User ehl2000
