@@ -15,9 +15,11 @@ Host agate
     User ehl2000
 
 Host sal
+    user ethan
     ProxyCommand ssh -q pudge nc 192.168.2.5 22
 
 Host oniichan
+    user sempai
     ProxyCommand ssh -q pudge nc 192.168.2.2 22
 
 Host it403
