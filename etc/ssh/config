@@ -30,3 +30,6 @@ Host clo
     HostName 104.131.112.180
     User ethan
     Port 22
+host fox
+    HostName fox.iol.unh.edu
+    User elarkham
