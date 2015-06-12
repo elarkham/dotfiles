@@ -57,10 +57,10 @@ rm -r $HOME/.vim
 rm $HOME/.vimrc
 ln -s $HOME/etc/vim $HOME/.vim
 ln -s $HOME/etc/vimrc $HOME/.vimrc
-rm -r /root/.vim
-rm /root/.vimrc
-ln -s $HOME/etc/vim /root/.vim
-ln -s $HOME/etc/vimrc /root/.vimrc
+sudo rm -r /root/.vim
+sudo rm /root/.vimrc
+sudo ln -s $HOME/etc/vim /root/.vim
+sudo ln -s $HOME/etc/vimrc /root/.vimrc
 
 ## Xorg Utils
 aurInstall="$aurInstall"
