@@ -53,8 +53,14 @@ pacInstall="$pacInstall"
 ## Editor
 aurInstall="$aurInstall"
 pacInstall="$pacInstall vim"
+rm -r $HOME/.vim
+rm $HOME/.vimrc
 ln -s $HOME/etc/vim $HOME/.vim
 ln -s $HOME/etc/vimrc $HOME/.vimrc
+rm -r /root/.vim
+rm /root/.vimrc
+ln -s $HOME/etc/vim /root/.vim
+ln -s $HOME/etc/vimrc /root/.vimrc
 
 ## Xorg Utils
 aurInstall="$aurInstall"
@@ -62,7 +68,7 @@ pacInstall="$pacInstall xorg-apps"
 
 ## Terminal
 aurInstall="$aurInstall"
-pacInstall="$pacInstall rxvt-unicode"
+pacInstall="$pacInstall rxvt-unicode tmux"
 ln -s $HOME/etc/Xresources $HOME/.Xresources
 
 ## Shell pt1
@@ -99,4 +105,5 @@ ln -s $HOME/etc/gitconfig $HOME/.gitconfig
 ln -s $HOME/etc/gitignore $HOME/.gitignore
 ln -s $HOME/etc/gitmodules $HOME/.gitmodules
 
-
+## Tmux
+ln -s $HOME/etc/tmux.conf $HOME/.tmux.conf
