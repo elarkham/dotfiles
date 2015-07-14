@@ -34,7 +34,7 @@ aurInstall="$aurInstall wesnoth"
 pacInstall="$pacInstall steam"
 
 ## Windows Manager
-aurInstall="$aurInstall bspwm-git sxhkd-git bar-aint-recursive"
+aurInstall="$aurInstall bspwm-git sxhkd-git bar-aint-recursive-bskv-git"
 pacInstall="$pacInstall openbox"
 ln -s $HOME/etc/xinitrc $HOME/.xinitrc
 
