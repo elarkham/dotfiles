@@ -22,9 +22,9 @@ wmname LG3D
 
 xsetroot -cursor_name left_ptr
 if [[ $(hostname) == leo ]]; then
-    hsetroot -fill '/home/ethan/usr/pictures/wallpapers/templeFall.png'
+    hsetroot -fill '/home/ethan/usr/pictures/Wallpapers/templeFall.png'
 else
-    hsetroot -fill '/home/ethan/usr/pictures/wallpapers/bwbCross.jpg'
+    hsetroot -fill '/home/ethan/usr/pictures/Wallpapers/bwbCross.jpg'
 fi
 
 case $WM in
