@@ -1,7 +1,12 @@
 ServerAliveInterval 100
 
-Host pudge
+Host cthulhu
     HostName larkham.li
+    Port 443
+    User ethan
+
+Host cthulhu-local
+    HostName 192.168.2.15
     Port 443
     User ethan
 
