@@ -53,10 +53,10 @@
 
 ! Appearance
 
-URxvt.font: xft:Profont :regular:size=14
-URxvt.imFont: xft:Profont :regular:size=14
-URxvt.boldFont: xft:Profont :regular:size=14
-URxvt.boldItalicFont: xft:Profont :regular:size=14
+URxvt.font: xft:Profont :regular:size=11
+URxvt.imFont: xft:Profont :regular:size=11
+URxvt.boldFont: xft:Profont :regular:size=11
+URxvt.boldItalicFont: xft:Profont :regular:size=11
 
 !URxvt.foreground: #D6D6D6
 !URxvt.background: #050505
