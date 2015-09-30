@@ -52,8 +52,10 @@ let g:lightline = {
       \ }
 set laststatus=2
 
+colorscheme dougblack
+
 " ~VimIndentGuides
-set background=light
+"set background=light
 
 " ~NerdTree
 ""Close Tree if its the only buffer left
