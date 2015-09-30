@@ -52,7 +52,7 @@
 
 ! Appearance
 
-URxvt.font: xft:Roboto Mono:regular:size=10
+URxvt.font: xft:Roboto Mono:regular:size=11
 
 URxvt.cursorBlink: true
 URxvt.scrollBar: false
