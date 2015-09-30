@@ -34,7 +34,7 @@ aurInstall="$aurInstall wesnoth"
 pacInstall="$pacInstall steam"
 
 ## Windows Manager
-aurInstall="$aurInstall bspwm-git sxhkd-git bar-aint-recursive-bskv-git"
+aurInstall="$aurInstall bspwm-git sxhkd-git"
 pacInstall="$pacInstall openbox"
 ln -s $HOME/etc/xinitrc $HOME/.xinitrc
 
@@ -82,7 +82,7 @@ pacInstall="$pacInstall fdm cronie"
 
 ## Install
 sudo pacman -Sy $pacInstall
-yaourt -S $aurInstall
+#yaourt -S $aurInstall
 
 ## Shell pt2
 echo "\n######-Change Default Shell-######\n"
