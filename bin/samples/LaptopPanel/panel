@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-/home/ethan/etc/panel/mkbar | bar -p -g 870x20+5+5 -f "-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*","-*-terminus-*-*-*-*-*-*-*-*-*-*-*-*" &
-
-/home/ethan/etc/panel/mkgroup | bar -p -g 870x6+5+0 -f "-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*","-*-terminus-*-*-*-*-*-*-*-*-*-*-*-*" &
-
-/home/ethan/etc/panel/mkclock | bar -g 340x25+1020+0 -f "-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*","-*-terminus-*-*-*-*-*-*-*-*-*-*-*-*" &
