@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+# hardsub.sh
+# Ethan Larkham
+#
+# Usage notes:
+# This script requires that ~/.fonts is in your fontconfig path.
+# This script also requires mkvmerge, realpath and ffmpeg to be installed. Only supports SSA subs and MKV files.
+# Also note that this script can take a long time to run.
+# Run as `hardsub.sh FILE_NAME SUBTITLE_ID AUDIO_ID`
+# You should be able to delete the following created files after it is done: done_subtitles.ass and the entire contents of ~/.fonts/MKV
+# They are not deleted automatically because you may want to use them again for a subsequent ffmpeg run
+
+DIRECTORY=$HOME/.fonts/MKV
+# Save $1 because `set` will overwrite it
+VIDEO_FILE="$(realpath "$1" )"
+SUBTITLES="$3"
+AUDIO="$4"
+OUTPUT="$(realpath "$2")"
+WD="$(pwd)"
+declare -a FONTS
+declare -a SUBTITLES
+
+# Create fonts directory
+if [ ! -d "$DIRECTORY" ]; then
+	mkdir "$DIRECTORY"
+fi
+
+if [ ! -f "$VIDEO_FILE" ]; then
+	echo "Cannot read $VIDEO_FILE"
+	exit 1
+fi
+
+if [ -z "$OUTPUT" ]; then
+	echo "Warning: No output file specified, will use output.mp4"
+	OUTPUT=`realpath output.mp4`
+fi
+
+if [ -z "$SUBTITLES" ]; then
+	echo "Warning: No Subtitle track file specified, will use 2"
+	SUBTITLES=2
+fi
+
+if [ -z "$AUDIO" ]; then
+	echo "Warning: No Audio track file specified, will use 1"
+	AUDIO=1
+fi
+
+# Use mkvmerge to get all our subtitles
+MKVMERGE=`mkvmerge -i "$VIDEO_FILE"`
+
+if [ $? -ne 0 ]; then
+	echo "mkvmerge failed to run!"
+	echo "$MKVMERGE"
+	exit 1
+fi
+
+# Get the track IDs of our subtitles
+while read LINE; do
+	set $LINE
+
+	# $LINE should look like:
+	# $1    $2 $3 $4        $5
+	# Track ID 3: subtitles (SubStationAlpha)
+
+	#if [ $1 = 'Track' ]; then
+	#	if [ $4 = 'subtitles' ]; then
+	#		TRACK_ID=${3//[!0-9]/};
+	#		SUBTITLES+=("$TRACK_ID")
+	#	fi
+	#fi
+
+	# $LINE should look like:
+	# $1         $2 $3 $4   $5                             $6   $7    $8     $9   $10  $11
+	# Attachment ID 1: type 'application/x-truetype-font', size 58224 bytes, file name '9SALERNO.TTF'
+
+	if [ $1 = 'Attachment' ]; then
+		if [ $5 = "'application/x-truetype-font'," ]; then
+			ATTACH_ID=${3//[!0-9]/};
+			FONTS+=("$ATTACH_ID")
+		fi
+	fi
+done <<< "$MKVMERGE"
+
+if [ ${#SUBTITLES[@]} -eq 0 ]; then
+	echo 'Error: File has no subtitles!'
+	exit 1
+fi
+
+echo ${#SUBTITLES[@]} subtitle tracks found: ${SUBTITLES[*]}
+echo ${#FONTS[@]} font attachments found: ${FONTS[*]}
+
+#Extract all our subtitles
+for i in ${SUBTITLES[@]}; do
+	mkvextract tracks "$VIDEO_FILE" "$i":output.ass
+done
+
+#Extract all our fonts
+cd "$DIRECTORY"
+
+mkvextract attachments "$VIDEO_FILE" ${FONTS[*]}
+
+cd "$WD"
+pwd
+
+#Prints ffmpegs input.
+echo "Running this line: ffmpeg -i "\""$VIDEO_FILE"\" -c:a libfdk_aac -b:a 384k -vcodec libx264 -pix_fmt yuv420p -profile:v baseline -preset slower -crf 18 -vf "scale=trunc(in_w/2)*2:trunc(in_h/2)*2" -vf "ass=output.ass" "$OUTPUT"
+echo
+
+ffmpeg -i "$VIDEO_FILE" -map 0:0 -map 0:"$AUDIO"  -threads 0 -c:a libfdk_aac -b:a 384k -vcodec libx264 -pix_fmt yuv420p -profile:v baseline -preset slower -crf 18 -vf subtitles=output.ass "$OUTPUT"
+
+exit 0
