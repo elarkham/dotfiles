@@ -17,6 +17,7 @@ fi
 #exec herbstluftwm -- :0
 
 xset +fp /usr/share/fonts/local
+xset +fp $HOME/.fonts
 xset fp rehash
 wmname LG3D
 
