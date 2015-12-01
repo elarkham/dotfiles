@@ -1,12 +1,15 @@
-#!/bin/sh
+#!/bin/bash
+
 xrdb ~/.Xresources
 xset +fp /usr/share/fonts/local
 xset fp rehash
+xset s off -dpms
 wmname LG3D
 
 xsetroot -cursor_name left_ptr
-hsetroot -fill '/home/ethan/usr/pictures/Wallpapers/bwbCross.jpg'
+#hsetroot -fill '/home/ethan/usr/pictures/Wallpapers/46228691_p0.jpg'
+nitrogen --restore
+#redshift -l 43.194722:-70.875 &
 
-sxhkd -c /home/ethan/etc/sxhkdrc &
-
-exec xwait
+sxhkd -f 100 -c /home/ethan/etc/sxhkd/sxhkdrc &
+exec bspwm -c /home/ethan/etc/bspwm/bspwmrc
