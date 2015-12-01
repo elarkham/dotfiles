@@ -26,16 +26,16 @@ sudo touch "/etc/profile.d/xdgconfig.sh"
 sudo echo 'export XDG_CONFIG_HOME="$HOME/etc"' | sudo tee "/etc/profile.d/xdgconfig.sh" > /dev/null
 
 ## Fonts
-aurInstall="$aurInstall stlarch_font"
+aurInstall="$aurInstall" #removed: stlarch_font
 pacInstall="$pacInstall terminus-font profont"
 
 ## Game
-aurInstall="$aurInstall wesnoth"
+aurInstall="$aurInstall"
 pacInstall="$pacInstall steam"
 
 ## Windows Manager
-aurInstall="$aurInstall bspwm-git sxhkd-git"
-pacInstall="$pacInstall openbox"
+aurInstall="$aurInstall sxhkd-git wmutils-git"
+pacInstall="$pacInstall"
 ln -s $HOME/etc/xinitrc $HOME/.xinitrc
 
 ## Music
@@ -88,17 +88,12 @@ sudo pacman -Sy $pacInstall
 echo "\n######-Change Default Shell-######\n"
 ln -s $HOME/etc/bashrc $HOME/.bashrc
 ln -s $HOME/etc/zshrc $HOME/.zshrc
-ln -s $HOME/etc/warprc $HOME/.warprc
 chsh -s /bin/zsh
 
 ## SSH pt2
 ln -s $HOME/etc/ssh $HOME/.ssh
 ssh-keygen -t rsa -b 4096 -C "$(whoami)@$(hostname)-$(date -I)"
-ssh-copy-id -i ~/.ssh/id_rsa.pub pudge
-
-## Mail pt2
-echo "*/15 * * * * fdm fetch >> $HOME/mail/fdm.log" | crontab
-sudo systemctl enable cronie
+ssh-copy-id -i ~/.ssh/id_rsa.pub cthulhu
 
 ## Git
 ln -s $HOME/etc/gitconfig $HOME/.gitconfig

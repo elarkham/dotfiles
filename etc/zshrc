@@ -51,6 +51,7 @@ source $ZSH/config.sh
 # User configuration
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/ethan/bin/:/home/ethan/bin/:/usr/local/rvm/gems/ruby-2.0.0-p598/bin"
+export PATH="$PATH:/home/ethan/bin"
 #export CLASSPATH=/home/ethan/bin/wheelsunh.jar:/home/ethan/bin/cs416.jar:$CLASSPATH
 
 if [[ "$(echo $HOSTNAME)" == "pudge" ]]; then
