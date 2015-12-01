@@ -2,6 +2,7 @@
 
 xrdb ~/.Xresources
 xset +fp /usr/share/fonts/local
+xset +fp $HOME/.fonts
 xset fp rehash
 xset s off -dpms
 wmname LG3D
