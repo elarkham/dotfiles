@@ -10,7 +10,7 @@ barWidth="$(echo $width - $EDGE_GAP - $EDGE_GAP | bc )"
 
 $HOME/etc/panel/mkbar | lemonbar -p -B "$barbg" -g "$barWidth"x18+$EDGE_GAP+2 -f "xft:Inconsolata:style=Semibold:pixelsize=11:antialias=true:hinting=slight" -f "-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1" &
 
-$HOME/panel/mkgroup | lemonbar -p -B "$barbg" -g "$barWidth"x2+$EDGE_GAP+0 -f "xft:unifont:style=Medium:antialias=false:dpi=96" &
+$HOME/etc/panel/mkgroup | lemonbar -p -B "$barbg" -g "$barWidth"x2+$EDGE_GAP+0 -f "xft:unifont:style=Medium:antialias=false:dpi=96" &
 
 sleep 4;
 
