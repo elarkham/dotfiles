@@ -11,7 +11,6 @@ Print
   scrot -q 100
 
 ## Media keys ##
-
 #Raise Volume
 XF86AudioRaiseVolume
   amixer set Master 5%+
@@ -65,20 +64,12 @@ mod4 + shift + Escape
 
 # Exit BSPWM
 mod4 + shift + q
-    bspc quit 1 && pkill sxhkd
+    bspc quit 1 && pkill sxhkd;
 
 # Toggle panels
 mod4 + q
     {pkill bar; pkill mkclock; pkill mkgroup; pkill mkbar; bspc config top_padding 0 ,\
-    bspc config top_padding 20; /home/ethan/etc/panel/panel }
-
-# Change Padding
-mod4 + shift + {minus,equal}
-    bspc config -d focused right_padding $((`bspc config -d focused right_padding` {+,-} 20 )); \
-    bspc config -d focused left_padding $((`bspc config -d focused left_padding` {+,-} 20 )); \
-    bspc config -d focused bottom_padding $((`bspc config -d focused bottom_padding` {+,-} 20 )); \
-    bspc config -d focused top_padding $((`bspc config -d focused top_padding` {+,-} 20 ));
-
+    bspc config top_padding 20; "$HOME/etc/panel/panel" }
 
 #-- Window Managment --#
 
@@ -92,7 +83,7 @@ mod4 + ctrl + shift + c
 
 # Lock node
 mod4 + shift + p
-    bspc window -t private
+  bspc window -t private
 
 # Toggle Fullscreen or Floating
 mod4 + {_,shift +} f
@@ -108,11 +99,11 @@ mod4 + space
 
 # Presel window for splitting
 mod4 + ctrl + {h,j,k,l}
-    bspc window -p {left,down,up,right}
+  bspc window -p {left,down,up,right}
 
 # Rotate leaves of tree
 mod4 + shift + {comma,period}
-    bspc desktop -R {90,270}
+  bspc desktop -R {90,270}
 
 # Select Window, or Move Window
 mod4 + {_,shift + }{h,j,k,l}
