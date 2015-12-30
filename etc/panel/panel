@@ -4,9 +4,9 @@ EDGE_GAP=0
 HEIGHT=25
 
 #barbg='#00838996'
-barbg='#1d1f21'
+barbg='#ff121010'
 
-width="$(xrandr | grep '*')"
+width="1820x1023"
 width="$(echo "${width%%x*}" | sed 's/^ *//')"
 
 barWidth="$(echo $width - $EDGE_GAP - $EDGE_GAP | bc )"

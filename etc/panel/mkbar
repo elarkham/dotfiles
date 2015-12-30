@@ -13,9 +13,9 @@ battery1=$(ls /sys/class/power_supply | grep BAT1)
 battery2=$(ls /sys/class/power_supply | grep BAT0)
 
 barch=''
-barfg='%{F#ff888888}'
-barmg='%{F#ffffffff}'
-barbg='%{F#00838996}'
+barfg='%{F#ffd2d2d2}'
+barmg='%{F#ff85678f}'
+barbg='%{F#00363232}'
 red="%{F#ffFF0000}"
 green="%{F#ff33CC33}"
 
@@ -126,11 +126,11 @@ volumeStatus() {
 
     if [[ "$(volume)" -lt 1 ]]; then
         echo "${barmg} "
-    elif [[ "$(volume)" -lt 25 ]]; then
+    elif [[ "$(volume)" -lt 26 ]]; then
         echo "${barmg} "
-    elif [[ "$(volume)" -lt 50 ]]; then
+    elif [[ "$(volume)" -lt 51 ]]; then
         echo "${barmg} "
-    elif [[ "$(volume)" -lt 100 ]]; then
+    elif [[ "$(volume)" -lt 101 ]]; then
         echo "${barmg} "
     else
         echo "${red} "

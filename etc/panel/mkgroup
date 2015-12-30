@@ -1,6 +1,6 @@
 #!/bin/bash
 # configuration variables
-refresh_rate=0              # how often will the bar update
+refresh_rate=0.01              # how often will the bar update
 
 COLOR_INACTIVE="#ff191919"
 COLOR_ACTIVE="#FFFFFFFF"
@@ -63,7 +63,7 @@ cat "$FIFO" | while read -r line ; do
         esac
     shift
     done
-    
+
     echo $wm_infos
     wm_infos=' '
 
