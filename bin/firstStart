@@ -71,26 +71,23 @@ aurInstall="$aurInstall"
 pacInstall="$pacInstall rxvt-unicode tmux"
 ln -s $HOME/etc/Xresources $HOME/.Xresources
 
-## Shell pt1
+## Shell 
 pacInstall="$pacInstall zsh"
 
-## SSH pt1
+## SSH
 pacInstall="$pacInstall openssh"
-
-## Mail pt1
-pacInstall="$pacInstall fdm cronie"
 
 ## Install
 sudo pacman -Sy $pacInstall
 #yaourt -S $aurInstall
 
-## Shell pt2
+## Shell Config 
 echo "\n######-Change Default Shell-######\n"
 ln -s $HOME/etc/bashrc $HOME/.bashrc
 ln -s $HOME/etc/zshrc $HOME/.zshrc
 chsh -s /bin/zsh
 
-## SSH pt2
+## SSH Config 
 ln -s $HOME/etc/ssh $HOME/.ssh
 ssh-keygen -t rsa -b 4096 -C "$(whoami)@$(hostname)-$(date -I)"
 ssh-copy-id -i ~/.ssh/id_rsa.pub cthulhu
