@@ -11,6 +11,6 @@ width="$(echo "${width%%x*}" | sed 's/^ *//')"
 
 barWidth="$(echo $width - $EDGE_GAP - $EDGE_GAP | bc )"
 
-/home/ethan/etc/panel/mkbar | bar -B "$barbg" -g "$barWidth"x20+$EDGE_GAP+6 -f "-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*","-*-terminus-*-*-*-*-*-*-*-*-*-*-*-*" &
+/home/ethan/etc/panel/mkbar | bar -B "$barbg" -g "$barWidth"x20+$EDGE_GAP+6 -f "-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*","-*-terminus-*-*-*-*-*-*-*-*-*-*-*-*"&
 
-/home/ethan/etc/panel/mkgroup | bar -B "$barbg" -g "$barWidth"x6+$EDGE_GAP+0 -f "-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*","-*-terminus-*-*-*-*-*-*-*-*-*-*-*-*" &
+/home/ethan/etc/panel/mkgroup | bar -B "$barbg" -g "$barWidth"x6+$EDGE_GAP+0 -f "-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*","-*-terminus-*-*-*-*-*-*-*-*-*-*-*-*"&

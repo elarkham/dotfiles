@@ -1,39 +1,19 @@
-#!/bin/sh
-#
-# ~/.xinitrc
-#
-# Executed by startx (run your window manager from here)
+#!/bin/bash
 
-if [ -d /etc/X11/xinit/xinitrc.d ]; then
-  for f in /etc/X11/xinit/xinitrc.d/*; do
-    [ -x "$f" ] && . "$f"
-  done
-  unset f
-fi
-[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
-
+xrdb ~/.Xresources
 xset +fp /usr/share/fonts/local
+xset +fp $HOME/.fonts
+
 xset fp rehash
+xset s off -dpms
+xset m 0 0
 wmname LG3D
 
 xsetroot -cursor_name left_ptr
-if [[ $(hostname) == leo ]]; then
-    hsetroot -fill '/home/ethan/usr/pictures/Wallpapers/templeFall.png'
-else
-    hsetroot -fill '/home/ethan/usr/pictures/grey_wash_wall/grey_wash_wall.png'
-fi
+hsetroot -tile ~/usr/pictures/wallpapers/grey_wash_wall/grey_wash_wall.png
+#nitrogen --restore
+#redshift -l 43.194722:-70.875 &
+compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &
 
-case $WM in
-		openbox			)exec openbox-session;;
-		bspwm			)exec sxhkd -c "/home/ethan/etc/bspwm/sxhkd/sxhkdrc" &
-                         exec bspwm -c "/home/ethan/etc/bspwm/bspwm/bspwmrc";;
-		xmonad			)exec dbus-launch xmonad;;
-		herbstluftwm    )exec herbstluftwm;;
-    	2bwm            )2bwm & exec urxvt;;
-		awesome			)exec awesome;;
-		dwm 			)exec dwm;;
-		*			    )exec sxhkd -c "/home/ethan/etc/bspwm/sxhkdrc" -f 100 &
-                         exec bspwm -c "/home/ethan/etc/bspwm/bspwmrc";;
-esac
-
-#/home/ethan/bin/startdwm &
+sxhkd -f 100 -c /home/ethan/etc/sxhkd/sxhkdrc &
+exec bspwm -c /home/ethan/etc/bspwm/bspwmrc
