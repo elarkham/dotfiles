@@ -5,12 +5,14 @@ xset +fp /usr/share/fonts/local
 xset +fp $HOME/.fonts
 xset fp rehash
 xset s off -dpms
+xset m 0 0
 wmname LG3D
 
 xsetroot -cursor_name left_ptr
-#hsetroot -fill '/home/ethan/usr/pictures/Wallpapers/46228691_p0.jpg'
-nitrogen --restore
+hsetroot -tile ~/usr/pictures/wallpapers/grey_wash_wall/grey_wash_wall.png
+#nitrogen --restore
 #redshift -l 43.194722:-70.875 &
+compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &
 
 sxhkd -f 100 -c /home/ethan/etc/sxhkd/sxhkdrc &
 exec bspwm -c /home/ethan/etc/bspwm/bspwmrc

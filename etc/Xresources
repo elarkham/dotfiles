@@ -17,22 +17,32 @@
 !-----------------------------------------------------------------
 
 !---- Fonts -----
-URxvt.font:             xft:Roboto Mono:regular:size=11
-!*font:                   -*-candy-*-*-*--11-*-*-*-*-*-*-*
-!*boldfont:               -*-candy-*-*-*--11-*-*-*-*-*-*-*
-
+!URxvt.font:              xft:Roboto Mono:regular:size=7
+!URxvt.font:              xft:Terminus:regular:size=7
+URxvt*font:               xft:Inconsolata:style=Semibold:pixelsize=14:antialias=true:hinting=slight
+URxvt*boldFont:           xft:Inconsolata:style=bold:pixelsize=14:antialias=true:hinting=slight
 !---- Font Settings ----
+*dpi:               90
+Urxvt*dpi:               139
 *autohint:               0
-*dpi:                    96
 *lcdfilter:              lcddefault
 *hintstyle:              hintfull
 *hinting:                1
 *antialias:              1
 *rgba:                   rgb
 
+!---- Cut and Paste ----
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+xvt.clipboard.copycmd:        xsel -ib
+URxvt.clipboard.pastecmd:     xsel -ob
+
 !---- General -----
 URxvt.cursorBlink:       true
 URxvt.scrollBar:         false
+URxvt.perl-ext-common:   default,clipboard
+URxvt.iso14755:          False
+
 *colorUL:                #777777
 *imLocale:               en_US.UTF-8
 *scrollBar:              false
