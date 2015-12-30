@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $HOME/etc/config
+source "$HOME/etc/config"
 
 xrdb ~/.Xresources
 xset +fp /usr/share/fonts/local
