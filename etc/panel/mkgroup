@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/env bash
 # configuration variables
 refresh_rate=0              # how often will the bar update
 
@@ -20,7 +20,7 @@ block_width="$(echo "$display_width/($BLOCK_SIZE*$WORKSPACES)" | bc)"
 
 # determine bar and space ratio based on width
 #bar_width="$(echo "$block_width * 0.99" | bc)"
-space_width="$(echo "$block_width * 0.01" | bc)"
+#space_width="$(echo "$block_width * 0.01" | bc)"
 
 # rounds down to nearest integer
 #bar_width="$(printf '%.*f' 0 $bar_width)"
@@ -41,7 +41,7 @@ done
 #done
 
 # This loop will fill a buffer with our infos, and output it to stdout.
-FIFO=/home/ethan/var/PANEL_FIFO
+FIFO="$HOME/var/PANEL_FIFO"
 [ -e "$FIFO" ] && rm "$FIFO"
 mkfifo "$FIFO"
 
@@ -85,4 +85,3 @@ cat "$FIFO" | while read -r line ; do
 
     sleep ${refresh_rate}
 done
-

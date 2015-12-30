@@ -19,5 +19,5 @@ hsetroot -tile $WALLPAPER
 compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &
 
 $HOME/etc/panel/panel &
-sxhkd -f 100 -c /home/ethan/etc/sxhkd/sxhkdrc &
-exec bspwm -c /home/ethan/etc/bspwm/bspwmrc
+sxhkd -f 100 -c $HOME/etc/sxhkd/sxhkdrc &
+exec bspwm -c $HOME/etc/bspwm/bspwmrc
