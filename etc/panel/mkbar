@@ -3,29 +3,24 @@
 ##Last Updated: Mar 01 2015
 
 # configuration variables
-refresh_rate=0.1                     # how often will the bar update
-datefmt="%d %b %I:%M:%S"             # date time format
-maildir=/home/ethan/mail/INBOX/new/  # where do new mails arrive ?
-alsactl=Master                       # which alsa channel to display
+refresh_rate=30                   # how often will the bar update
+datefmt="%d %b %I:%M"             # date time format
+alsactl=Master                    # which alsa channel to display
 
 # find battery name in a stupid way
 battery1=$(ls /sys/class/power_supply | grep BAT1)
 battery2=$(ls /sys/class/power_supply | grep BAT0)
 
-barch=''
-barfg='%{F#ffd2d2d2}'
-barmg='%{F#ff85678f}'
-barbg='%{F#00363232}'
+barfg='%{F#ffd2d2d2}' #Bar Forground
+barbg='%{F#00363232}' #Bar Background
+barmg='%{F#ff85678f}' #Bar Icon Color
+
 red="%{F#ffFF0000}"
 green="%{F#ff33CC33}"
 
 
 clock() {
     date "+${datefmt}"
-}
-
-mails() {
-    fcount ${maildir}
 }
 
 muted() {
@@ -77,12 +72,6 @@ cpuload() {
     echo `bc <<< $LINE`
 }
 
-memused() {
-    read t f <<< `grep -E 'Mem(Total|Free)' /proc/meminfo |awk '{print $2}'`
-    read b c <<< `grep -E '^(Buffers|Cached)' /proc/meminfo |awk '{print $2}'`
-    bc <<< "100 * ($t - $f - $c - $b) / $t"
-}
-
 netstate() {
     test -n "`ip route`" && echo "connected" ||
                             echo "disconnected"
@@ -102,16 +91,6 @@ netip() {
             cat "$HOME/var/externalip"
             ;;
     esac
-}
-
-
-nowplaying() {
-    cur="$(mpc current)"
-    if test -n "$(mpc current)"; then
-        echo "$cur"
-    else
-        echo "- stopped -"
-    fi
 }
 
 muted() {
@@ -153,22 +132,20 @@ while :; do
     getDevice
 
     buf="${buf}%{l} "
-    buf="${buf}${barmg}$CONNECTION_ICON ${barfg}$ESSID"
-    buf="${buf}${barmg}   ${barfg}$(netip local)"
-    buf="${buf}${barmg} ${barfg}$(netip)    "
+#    buf="${buf}${barmg}$CONNECTION_ICON ${barfg}$ESSID"
+    buf="${buf}${barmg}${barfg}$(netip local)  "
+    buf="${buf}${barmg}${barfg}$(netip)"
 
     buf="${buf}%{r}"
-    buf="${buf}${barmg}${barfg} $(checkupdates | wc -l)    "
-    buf="${buf}${barmg}${barfg} $(mails)"
+    buf="${buf}${barmg}${barfg} $(checkupdates | wc -l) "
 
-    buf="${buf}$(volumeStatus)${barfg} $(volume)%%"
+    buf="${buf}$(volumeStatus)${barfg} $(volume)%"
 
     # Show battery status if there is a battery
-    test -n "${battery1}" &&
-        buf="${buf}$(batteryStatus) $(batteryCapacity)"'%%'
+    test -n "${battery1}" && buf="${buf}$(batteryStatus) $(batteryCapacity)"'%'
 
-    buf="${buf}${barmg} ${barfg} $(clock)  "
+    buf="${buf}${barmg} ${barfg} $(clock) ${barbg}|"
     echo $buf
     buf=""
-    #sleep ${refresh_rate}
+    sleep ${refresh_rate}
 done

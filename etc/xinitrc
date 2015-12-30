@@ -8,6 +8,7 @@ xset fp rehash
 xset s off -dpms
 xset m 0 0
 wmname LG3D
+ibus-daemon --xim &
 
 xsetroot -cursor_name left_ptr
 hsetroot -tile ~/usr/pictures/wallpapers/grey_wash_wall/grey_wash_wall.png
