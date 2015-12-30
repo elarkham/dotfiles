@@ -137,12 +137,12 @@ while :; do
     buf="${buf}${barmg}${barfg}$(netip)"
 
     buf="${buf}%{r}"
-    buf="${buf}${barmg}${barfg} $(checkupdates | wc -l) "
+#    buf="${buf}${barmg}${barfg} $(checkupdates | wc -l) "
 
     buf="${buf}$(volumeStatus)${barfg} $(volume)%"
 
     # Show battery status if there is a battery
-    test -n "${battery1}" && buf="${buf}$(batteryStatus) $(batteryCapacity)"'%'
+    #test -n "${battery1}" && buf="${buf}$(batteryStatus) $(batteryCapacity)"'%'
 
     buf="${buf}${barmg} ${barfg} $(clock) ${barbg}|"
     echo $buf
