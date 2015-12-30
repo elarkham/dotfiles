@@ -4,7 +4,7 @@
 mod4 + Return
   urxvt
 mod4 + r
-  dmenu_run
+  dmenu_run -y 4 -h 15 -nb '#121010' -nf white -sb white -sf '#121010'
 mod4 + shift + n
   xterm
 Print
@@ -67,6 +67,19 @@ mod4 + shift + Escape
 mod4 + shift + q
     bspc quit 1 && pkill sxhkd
 
+# Toggle panels
+mod4 + q
+    {pkill bar; pkill mkclock; pkill mkgroup; pkill mkbar; bspc config top_padding 0 ,\
+    bspc config top_padding 20; /home/ethan/etc/panel/panel }
+
+# Change Padding
+mod4 + shift + {minus,equal}
+    bspc config -d focused right_padding $((`bspc config -d focused right_padding` {+,-} 20 )); \
+    bspc config -d focused left_padding $((`bspc config -d focused left_padding` {+,-} 20 )); \
+    bspc config -d focused bottom_padding $((`bspc config -d focused bottom_padding` {+,-} 20 )); \
+    bspc config -d focused top_padding $((`bspc config -d focused top_padding` {+,-} 20 ));
+
+
 #-- Window Managment --#
 
 # Close Window
@@ -77,9 +90,17 @@ mod4 + shift + c
 mod4 + ctrl + shift + c
   bspc window -k
 
-# Toggle Fullscreen
+# Lock node
+mod4 + shift + p
+    bspc window -t private
+
+# Toggle Fullscreen or Floating
 mod4 + {_,shift +} f
   bspc window -t {floating,fullscreen}
+
+# Focus on floating / tiled
+mod4 + e
+    bspc window -f {next.floating,next.tiled}
 
 # Toggle monocle
 mod4 + space
@@ -96,6 +117,10 @@ mod4 + shift + {comma,period}
 # Select Window, or Move Window
 mod4 + {_,shift + }{h,j,k,l}
  bspc window -{f,s} {left,down,up,right} || bspc window -f {prev, prev, next, next}
+
+# Move window into presel position
+mod4 + shift {a,s,d,f}
+    bspc window -w {left.manual,down.manual,up.manual,right.manual}
 
 # Move or Resize Window, BSPWM handles this for the most part
 mod4 + button{1-3}

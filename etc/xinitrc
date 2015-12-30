@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source $HOME/etc/config
+
 xrdb ~/.Xresources
 xset +fp /usr/share/fonts/local
 xset +fp $HOME/.fonts
@@ -11,7 +13,7 @@ wmname LG3D
 ibus-daemon --xim &
 
 xsetroot -cursor_name left_ptr
-hsetroot -tile ~/usr/pictures/wallpapers/grey_wash_wall/grey_wash_wall.png
+hsetroot -tile $WALLPAPER
 #nitrogen --restore
 #redshift -l 43.194722:-70.875 &
 compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &

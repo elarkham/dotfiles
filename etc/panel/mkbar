@@ -13,7 +13,7 @@ battery2=$(ls /sys/class/power_supply | grep BAT0)
 
 barfg='%{F#ffd2d2d2}' #Bar Forground
 barbg='%{F#00363232}' #Bar Background
-barmg='%{F#ff85678f}' #Bar Icon Color
+barmg="%{F#ff$USER_COLOR}" #Bar Icon Color
 
 red="%{F#ffFF0000}"
 green="%{F#ff33CC33}"
