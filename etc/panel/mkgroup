@@ -46,7 +46,7 @@ FIFO="$HOME/var/PANEL_FIFO"
 mkfifo "$FIFO"
 
 # sends status of workspaces to named pipe
-bspc control --subscribe > "$FIFO" &
+bspc subscribe report > "$FIFO" &
 
 # colors the bar based on whether the space is active
 cat "$FIFO" | while read -r line ; do
