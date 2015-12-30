@@ -11,7 +11,7 @@ COLOR_SPACE="#ff121010"
 BLOCK="█"
 SPACE=" "
 WORKSPACES=10
-BLOCK_SIZE=12 #How many pixels does BLOCK take?
+BLOCK_SIZE=$BAR_SIZE #How many pixels does BLOCK take?
 
 # calculates how many blocks per bar
 display_width="$(xrandr | grep '*')"
