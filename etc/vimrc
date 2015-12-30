@@ -1,103 +1,153 @@
+" =============================
+" |       LOAD PLUGINS        |
+" =============================
 call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'Valloric/YouCompleteMe'
 Plug 'Raimondi/delimitMate'
-Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/syntastic'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
-" ~Backups
-set backupdir=/home/ethan/etc/vim/backups,.,/tmp
-set directory=.,./home/ethan/etc/vim/backups,/tmp
 
-" ~Spaces and Tabs
-set tabstop=4       " number of visual spaces per TAB
-set shiftwidth=4      " size of indent
-set softtabstop=4   " number of spaces in tab when editing
-set expandtab        "tabs are spaces
-set smarttab
+" =============================
+" |    VIM GENERAL CONFIG     |
+" =============================
+
+" | ==== BEHAVIOR ==== |
+
+" -||General||-
+set virtualedit=block " make visual blocks easier to understand"
+
+filetype plugin on
+filetype indent on
+
+set autoread  " re-read file if changed outside
+set autowrite " automatically save before commands like :next and :make"
+
+set so=7      " keeps cursor reasonably centered
+
+" for self-made keybindings
+let mapleader   = ","
+let g:mapleader = ","
+
+" use unix as the standard file type
+set ffs=unix,dos,mac
+
+" -||Backups||-
+set noswapfile
+set nowritebackup
+set nobackup
+set undodir=$HOME/etc/undo
+
+" -||Formatting||-
+set tabstop=4      " number of visual spaces per tab
+set shiftwidth=4   " size of tab indent
+set softtabstop=4  " number of spaces in tab when editing
+set expandtab      " tabs print spaces
+set autoindent     " auto tab-indent based on code postition
+
+set lbr            " enables line breaking
+set sbr=>          " symbol to indicate linebreak
+
+set splitright          " open vsplits on the right"
+set foldenable          " enable folding
+set foldmethod=syntax   " define how to fold files in general"
+set backspace=2         " fixes backspaces
+
+" removes all trailing whitespace
 autocmd BufWritePre * %s/\s\+$//e
 
-" ~UI Config
+" -||Searching||-
+set incsearch           " search as characters are entered
+set hlsearch            " highlight matches
+set ignorecase          " ignore case when searching
+set smartcase           " case only helps search
+
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f')<CR>
+vnoremap <silent> # :call VisualSelection('b')<CR>
+
+
+" | ==== DISPLAY ==== |
+
+" -||General||-
+colorscheme dougblack
+syntax on               " display syntax coloring
+
 set number              " show line numbers
-set showcmd             " show command in bottom bar
 set cursorline          " highlight current line
-hi CursorLine term=bold cterm=bold guibg=White
-set wildmenu            " visual autocomplete for command menu
-set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
-autocmd BufReadPost * normal `"
+set wildmenu            " visual autocomplete for command menu
+
+set showcmd             " show command in bottom bar
+set laststatus=2        " the status line always displayed
+
+set lazyredraw          " redraw only when we need to.
+set encoding=utf-8      " use UTF-8 for file/term encoding"
+set modeline            " modelines are vim settings for a specfic file
+set noeb vb t_vb=
+
+" Popup menu colors
 highlight Pmenu ctermfg=4 ctermbg=8
 
-" ~Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
+" Cursor highlight colors
+hi CursorLine term=bold cterm=bold guibg=White
 
-" ~LightBar
+" | ==== KEY BINDINGS ==== |
+
+" Disables Highlight
+nmap <F3> :set hlsearch!<CR>
+
+" CTRL-Tab is next tab
+nmap <C-Tab> :<C-U>bnext<CR>
+
+" CTRL-SHIFT-Tab is previous tab
+nmap <C-S-Tab> :<C-U>bprev<CR>
+
+" Sets Buffer Keys
+nmap <C-n> :bnext<CR>
+nmap <C-p> :bprevious<CR>
+
+" Space open/closes folds
+nnoremap <space> za
+
+" Disable Arrow Keys
+nmap <Up> <NOP>
+nmap <Down> <NOP>
+nmap <Left> <NOP>
+nmap <Right> <NOP>
+
+" Treat broken lines as multiple lines with j/k
+map j gj
+map k gk
+
+" Center the cursor on the search word when using 'n'
+nmap n nzz
+nmap N Nzz
+
+" Pressing leader+ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+
+" =============================
+" |         PLUGINS           |
+" =============================
+
+" | ==== Lightbar ==== |
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'component': {
       \   'readonly': '%{&readonly?"⭤":""}',
       \ }
       \ }
-set laststatus=2
 
-colorscheme dougblack
 
-" ~VimIndentGuides
-"set background=light
-
-" ~NerdTree
-""Close Tree if its the only buffer left
+" | ==== NERD Tree ==== |
+" Close Tree if its the only buffer left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " ^Map ctrl + n to nerdTree toggle
 map <F2> :NERDTreeToggle<CR>
 
-" ~Tagbar
-nmap <F8> :TagbarToggle<CR>
-
-" ~ultisnips
-" Trigger configuration. Do not use <tab> if you use
-" https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-d>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" ~Syntax
-"filetype plugin indent on      " load filetype-specific indent files
-syntax on                      " display syntax coloring
-
-" ~Searching
-set incsearch           " search as characters are entered
-set hlsearch            " highlight matches
-
-" ~Tabs
-" CTRL-Tab is next tab
-noremap <C-Tab> :<C-U>bnext<CR>
-
-" CTRL-SHIFT-Tab is previous tab
-noremap <C-S-Tab> :<C-U>bprev<CR>
-
-" ~Msc Bindings
-"Disables Highlight
-nnoremap <F3> :set hlsearch!<CR>
-"Sets Buffer Keys
-nnoremap <C-n> :bnext<CR>
-nnoremap <C-p> :bprevious<CR>
-"Fixes Backspace
-set backspace=2
-" ~Hardmode
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
