@@ -30,6 +30,7 @@ bspc config focus_by_distance       true
 
 # Rules
 bspc rule -a Conky sticky=on manage=off lower=on
+bspc rule -a lemonbar lower=on
 bspc rule -a astime sticky=on
 bspc rule -a feh floating=on manage=on
 bspc rule -a sun-awt-X11-XFramePeer floating=on manage=on
