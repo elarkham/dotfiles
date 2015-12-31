@@ -14,10 +14,10 @@ PROMPT='[%{$fg[$NCOLOR]%}%B%m%b%{$reset_color%}:%{$fg[blue]%}%30<...<%~%<<%{$res
 RPROMPT='$(git_prompt_info)'
 
 # git theming
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[gray]%}(%{$fg_no_bold[yellow]%}%B"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[gray]%}(%{$fg_no_bold[red]%}%B"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%b%{$fg_bold[gray]%})%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_CLEAN=""
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[blue]%}✱"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[blue]%}■"
 
 # LS colors, made with http://geoff.greer.fm/lscolors/
 export LSCOLORS="Gxfxcxdxbxegedabagacad"

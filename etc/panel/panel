@@ -13,5 +13,4 @@ $HOME/etc/panel/mkbar | lemonbar -p -B "$barbg" -g "$barWidth"x18+$EDGE_GAP+2 -f
 $HOME/etc/panel/mkgroup | lemonbar -p -B "$barbg" -g "$barWidth"x2+$EDGE_GAP+0 -f "xft:unifont:style=Medium:antialias=false:dpi=96" &
 
 sleep 4;
-
 $HOME/etc/panel/lower &
