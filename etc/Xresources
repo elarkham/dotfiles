@@ -8,31 +8,59 @@
 ! Terminal colors ------------------------------------------------
 !-----------------------------------------------------------------
 
-#include "/home/ethan/etc/colors/light-darkpastel.colors"
+#include "colors/light-darkpastel.colors"
 
-!--
 !-----------------------------------------------------------------
 !-----------------------------------------------------------------
 ! URXVT ----------------------------------------------------------
 !-----------------------------------------------------------------
 
 !---- Fonts -----
-URxvt.font:             xft:Roboto Mono:regular:size=11
-!*font:                   -*-candy-*-*-*--11-*-*-*-*-*-*-*
-!*boldfont:               -*-candy-*-*-*--11-*-*-*-*-*-*-*
+!URxvt.font:              xft:Roboto Mono:regular:size=7
+!URxvt.font:              xft:Terminus:regular:size=7
+URxvt*font:               xft:Inconsolata\
+                              :style=Semibold\
+                              :pixelsize=14\
+                              :antialias=true:hinting=slight,\
+                          xft:unifont\
+                              :style=Medium\
+                              :antialias=false
+
+URxvt*boldFont:           xft:Inconsolata\
+                             :style=bold\
+                             :pixelsize=14\
+                             :antialias=true\
+                             :hinting=slight,\
+                          xft:unifont\
+                             :pixelsize=14\
+                             :style=Medium\
+                             :antialias=false
+
 
 !---- Font Settings ----
+*dpi:                    90
+Urxvt*dpi:               139
 *autohint:               0
-*dpi:                    96
 *lcdfilter:              lcddefault
 *hintstyle:              hintfull
 *hinting:                1
 *antialias:              1
 *rgba:                   rgb
 
+!---- Cut and Paste ----
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+Uxvt.clipboard.copycmd:        xsel -ib
+URxvt.clipboard.pastecmd:     xsel -ob
+
 !---- General -----
 URxvt.cursorBlink:       true
 URxvt.scrollBar:         false
+URxvt.perl-ext-common:   default,clipboard
+URxvt.iso14755:          False
+URxvt.inputMethod:       ibus
+URxvt.preeditType:       OverTheSpot
+
 *colorUL:                #777777
 *imLocale:               en_US.UTF-8
 *scrollBar:              false
@@ -49,6 +77,3 @@ URxvt.scrollBar:         false
 
 dzen2*font:              *-*-*-*-*-*-4-*-*-*-*-*-*-*
 Xcursor.size:            32
-
-!--
-!-----------------------------------------------------------------
