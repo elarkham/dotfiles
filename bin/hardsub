@@ -106,6 +106,6 @@ pwd
 echo "Running this line: ffmpeg -i "\""$VIDEO_FILE"\" -c:a libfdk_aac -b:a 384k -vcodec libx264 -pix_fmt yuv420p -profile:v baseline -preset slower -crf 18 -vf "scale=trunc(in_w/2)*2:trunc(in_h/2)*2" -vf "ass=output.ass" "$OUTPUT"
 echo
 
-ffmpeg -i "$VIDEO_FILE" -map 0:0 -map 0:"$AUDIO"  -threads 0 -c:a libfdk_aac -b:a 384k -vcodec libx264 -pix_fmt yuv420p -profile:v baseline -preset slower -crf 18 -vf subtitles=output.ass "$OUTPUT"
+ffmpeg -i "$VIDEO_FILE" -map 0:0 -map 0:"$AUDIO"  -threads 0 -c:a libfdk_aac -b:a 384k -vcodec libx264 -pix_fmt yuv420p -profile:v baseline -preset slower -crf 19 -vf subtitles=output.ass "$OUTPUT"
 
 exit 0
