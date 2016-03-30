@@ -50,7 +50,7 @@ Urxvt*dpi:               139
 !---- Cut and Paste ----
 URxvt.keysym.Shift-Control-C: perl:clipboard:copy
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-Uxvt.clipboard.copycmd:        xsel -ib
+URxvt.clipboard.copycmd:      xsel -ib
 URxvt.clipboard.pastecmd:     xsel -ob
 
 !---- General -----
@@ -77,3 +77,4 @@ URxvt.preeditType:       OverTheSpot
 
 dzen2*font:              *-*-*-*-*-*-4-*-*-*-*-*-*-*
 Xcursor.size:            32
+URxvt*dynamicColors:     on

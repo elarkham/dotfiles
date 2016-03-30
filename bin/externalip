@@ -1,4 +1,5 @@
 #! /usr/bin/env bash
-EXTERNAL_IP="$(curl http://canihazip.com/s)"
-echo "$EXTERNAL_IP" > "$HOME/var/externalip"
+IP=$(curl http://canihazip.com/s)
+
+echo "$IP" > $HOME/var/externalip
 

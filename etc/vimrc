@@ -5,9 +5,13 @@ call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Raimondi/delimitMate'
+Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-surround'
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
+Plug 'elixir-lang/vim-elixir'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'dag/vim-fish'
 call plug#end()
 
 
@@ -33,7 +37,10 @@ let mapleader   = ","
 let g:mapleader = ","
 
 " use unix as the standard file type
-set ffs=unix,dos,mac
+set ffs=unix,mac,dos
+
+" use JSX on all js files
+let g:jsx_ext_required = 0
 
 " -||Backups||-
 set noswapfile
@@ -42,9 +49,9 @@ set nobackup
 set undodir=$HOME/etc/undo
 
 " -||Formatting||-
-set tabstop=4      " number of visual spaces per tab
-set shiftwidth=4   " size of tab indent
-set softtabstop=4  " number of spaces in tab when editing
+set tabstop=2      " number of visual spaces per tab
+set shiftwidth=2   " size of tab indent
+set softtabstop=2  " number of spaces in tab when editing
 set expandtab      " tabs print spaces
 set autoindent     " auto tab-indent based on code postition
 
@@ -52,8 +59,9 @@ set lbr            " enables line breaking
 set sbr=>          " symbol to indicate linebreak
 
 set splitright          " open vsplits on the right"
-set foldenable          " enable folding
+set nofoldenable        " disable folding
 set foldmethod=syntax   " define how to fold files in general"
+set foldlevelstart=20   " only I can set the folds
 set backspace=2         " fixes backspaces
 
 " removes all trailing whitespace
@@ -91,7 +99,7 @@ set modeline            " modelines are vim settings for a specfic file
 set noeb vb t_vb=
 
 " Popup menu colors
-highlight Pmenu ctermfg=4 ctermbg=8
+" highlight Pmenu ctermfg=4 ctermbg=8
 
 " Cursor highlight colors
 hi CursorLine term=bold cterm=bold guibg=White

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-xrdb ~/.Xresources
+xrdb     $HOME/etc/Xresources
 xset +fp /usr/share/fonts/local
 xset +fp $HOME/.fonts
 
@@ -13,7 +13,8 @@ ibus-daemon --xim &
 #nitrogen --restore
 #redshift -l 43.194722:-70.875 &
 xsetroot -cursor_name left_ptr
-compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &
+#compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &
+xinput set-prop 10 152 1.500000, 0.000000, 0.000000, 0.000000, 1.500000, 0.000000, 0.000000, 0.000000, 1.000000
 
 source "$HOME/etc/config"
 
