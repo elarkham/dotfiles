@@ -19,9 +19,9 @@
 !URxvt.font:              xft:Roboto Mono:regular:size=7
 !URxvt.font:              xft:Terminus:regular:size=7
 URxvt*font:               xft:Inconsolata\
-                              :style=Semibold\
+                              :style=Medium\
                               :pixelsize=14\
-                              :antialias=true:hinting=slight,\
+                              :antialias=true:hinting=full,\
                           xft:unifont\
                               :style=Medium\
                               :antialias=false
@@ -38,38 +38,26 @@ URxvt*boldFont:           xft:Inconsolata\
 
 
 !---- Font Settings ----
-*dpi:                    90
-Urxvt*dpi:               139
+*dpi:                    96
+Urxvt*dpi:               96
 *autohint:               0
 *lcdfilter:              lcddefault
 *hintstyle:              hintfull
 *hinting:                1
 *antialias:              1
-*rgba:                   rgb
-
-!---- Cut and Paste ----
-URxvt.keysym.Shift-Control-C: perl:clipboard:copy
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-URxvt.clipboard.copycmd:      xsel -ib
-URxvt.clipboard.pastecmd:     xsel -ob
+*.rgba:                  rgb
 
 !---- General -----
 URxvt.cursorBlink:       true
 URxvt.scrollBar:         false
-URxvt.perl-ext-common:   default,clipboard
-URxvt.iso14755:          False
 URxvt.inputMethod:       ibus
 URxvt.preeditType:       OverTheSpot
 
 *colorUL:                #777777
 *imLocale:               en_US.UTF-8
 *scrollBar:              false
-*cursorBlink:            true
-*cursorUnderline:        false
 *savelines:              1024
-*shading:                60
 
-!-¬
 !-----------------------------------------------------------------
 !-----------------------------------------------------------------
 ! Misc -----------------------------------------------------------
@@ -77,4 +65,3 @@ URxvt.preeditType:       OverTheSpot
 
 dzen2*font:              *-*-*-*-*-*-4-*-*-*-*-*-*-*
 Xcursor.size:            32
-URxvt*dynamicColors:     on

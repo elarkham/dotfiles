@@ -62,3 +62,5 @@ function fish_prompt
   set_color normal
 end
 
+# Greeting
+set fish_greeting ""

@@ -5,7 +5,7 @@ call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Raimondi/delimitMate'
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'elixir-lang/vim-elixir'
@@ -96,13 +96,13 @@ set laststatus=2        " the status line always displayed
 set lazyredraw          " redraw only when we need to.
 set encoding=utf-8      " use UTF-8 for file/term encoding"
 set modeline            " modelines are vim settings for a specfic file
-set noeb vb t_vb=
+" set noeb vb t_vb=
 
 " Popup menu colors
-" highlight Pmenu ctermfg=4 ctermbg=8
+highlight Pmenu ctermfg=4 ctermbg=8
 
 " Cursor highlight colors
-hi CursorLine term=bold cterm=bold guibg=White
+" hi CursorLine term=bold cterm=bold guibg=White
 
 " | ==== KEY BINDINGS ==== |
 
