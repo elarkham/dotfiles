@@ -2,13 +2,13 @@
 ## Author: Ethan Larkham
 ## Date: March 30, 2016
 
+# Source Login Profiles
+env -i HOME=$HOME dash -l -c printenv | sed -e '/PATH/s/:/ /g;s/=/ /;s/^/set -x /' | source
+
 # Environment Variables
 set -x PATH $PATH $HOME/bin
 set -x EDITOR "nvim"
 set -x VISUAL "nvim"
-
-# Source Login Profiles
-env -i HOME=$HOME dash -l -c printenv | sed -e '/PATH/s/:/ /g;s/=/ /;s/^/set -x /' | source
 
 # Edit Mode
 ##fish_vi_mode

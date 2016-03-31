@@ -4,7 +4,7 @@
 mod4 + Return
   urxvt
 mod4 + r
-  dmenu_run -h 15 -nb '#121010' -nf white -sb white -sf '#121010'
+  dmenu_run -h 15 -nb '#121010' -nf white -sb white -sf '#121010' -hist "$XDG_DATA_HOME"/dmenu.history
 mod4 + shift + n
   xterm
 Print

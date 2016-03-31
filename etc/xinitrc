@@ -11,14 +11,10 @@ wmname LG3D
 ibus-daemon --xim &
 
 redshift -l 43.194722:-70.875 &
-compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &
+compton --config "$XDG_CONFIG_HOME/compton.conf" &
 
 xsetroot -cursor_name left_ptr
-xinput set-prop 10 152 1.500000, 0.000000, 0.000000, 0.000000, 1.500000, 0.000000, 0.000000, 0.000000, 1.000000
-
-$HOME/etc/xrandr/lazarus.sh
-
-hsetroot -center $HOME/usr/pictures/Beserk_Battle.jpg -contrast 0.68 -gamma 0.4
+hsetroot -solid "#848484"
 
 export SXHKD_SHELL="/bin/bash"
 sxhkd -f 100 -c $HOME/etc/sxhkd/sxhkdrc &
