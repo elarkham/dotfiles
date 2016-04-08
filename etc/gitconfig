@@ -1,11 +1,11 @@
 [user]
-	name = Ethan Larkham
-	email = ethanlarkham@gmail.com
+  name = Ethan Larkham
+  email = ethanlarkham@gmail.com
 [push]
-	default = current
+  default = current
 [core]
-	autocrlf = input
-	safecrlf = true
+  autocrlf = input
+  safecrlf = true
 [alias]
   co = checkout
   ci = commit
