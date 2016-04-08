@@ -20,7 +20,7 @@
 !URxvt.font:              xft:Terminus:regular:size=7
 URxvt*font:               xft:Inconsolata\
                               :style=Semibold\
-                              :pixelsize=14\
+                              :pixelsize=16\
                               :antialias=true:hinting=slight,\
                           xft:unifont\
                               :style=Medium\
@@ -28,7 +28,7 @@ URxvt*font:               xft:Inconsolata\
 
 URxvt*boldFont:           xft:Inconsolata\
                              :style=bold\
-                             :pixelsize=14\
+                             :pixelsize=16\
                              :antialias=true\
                              :hinting=slight,\
                           xft:unifont\
@@ -39,7 +39,7 @@ URxvt*boldFont:           xft:Inconsolata\
 
 !---- Font Settings ----
 *dpi:                    90
-Urxvt*dpi:               139
+Urxvt*dpi:               170
 *autohint:               0
 *lcdfilter:              lcddefault
 *hintstyle:              hintfull
@@ -47,17 +47,9 @@ Urxvt*dpi:               139
 *antialias:              1
 *rgba:                   rgb
 
-!---- Cut and Paste ----
-URxvt.keysym.Shift-Control-C: perl:clipboard:copy
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-Uxvt.clipboard.copycmd:        xsel -ib
-URxvt.clipboard.pastecmd:     xsel -ob
-
 !---- General -----
 URxvt.cursorBlink:       true
 URxvt.scrollBar:         false
-URxvt.perl-ext-common:   default,clipboard
-URxvt.iso14755:          False
 URxvt.inputMethod:       ibus
 URxvt.preeditType:       OverTheSpot
 

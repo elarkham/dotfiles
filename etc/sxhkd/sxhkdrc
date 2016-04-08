@@ -1,63 +1,31 @@
-# SXHKD CONFIGURATION
+# -> sxhkdrc
+## Author: Ethan Larkham
+## Date: March 31, 2016
 
-## Spawn Programs ##
+# # # # # # # # # # # # #
+#    Program Spawning   #
+# # # # # # # # # # # # #
+
+# Spawn Terminal
 mod4 + Return
   urxvt
+
+# Application Launcher
 mod4 + r
-  dmenu_run -y 4 -h 15 -nb '#121010' -nf white -sb white -sf '#121010'
+  dmenu_run -h 15 -nb '#121010' -nf white -sb white -sf '#121010' -hist "$XDG_DATA_HOME"/dmenu.history
+
+# Spawn xterm fallback
 mod4 + shift + n
   xterm
+
+# Printscreen
 Print
   scrot -q 100
 
-## Media keys ##
-#Raise Volume
-XF86AudioRaiseVolume
-  amixer set Master 5%+
-mod4 + F12
-  amixer set Master 5%+
+#--#-#-#-#-#-#-#-#-#-#-#-#-#-#--#
+#    SXHKD+BSPWM Managment      #
+#--#-#-#-#-#-#-#-#-#-#-#-#-#-#--#
 
-#Lower Volume
-XF86AudioLowerVolume
-  amixer set Master 5%-
-mod4 + F11
-  amixer set Master 5%-
-
-#Mute Audio
-XF86AudioMute
-  amixer set Master 0%
-mod4 + F10
-  amixer set Master 0%
-
-#Sleep
-XF86Sleep
-  pm-suspend
-mod4 + F9
-  pm-suspend
-
-#Toggle Music
-XF86AudioPlay
-  mpc toggle
-mod4 + F5
-  mpc toggle
-
-#Stop Music
-mod4 + F6
-  mpc stop
-
-#Next Song
-XF86AudioNext
-  mpc next
-mod4 + F7
-  mpc next
-
-#Prev Song
-XF86AudioPrev
-  mpc prev
-mod4 + F8
-  mpc prev
-
-#---- SXHKD+BSPWM Managment ----#
 # Reload SXHKD Configuration
 mod4 + shift + Escape
   pkill -USR1 -x sxhkd
@@ -68,10 +36,11 @@ mod4 + shift + q
 
 # Toggle panels
 mod4 + q
-    {pkill lemonbar; pkill lower; pkill mkgroup; pkill mkbar; bspc config top_padding 0 ,\
-    bspc config top_padding 20; "$HOME/etc/panel/panel" }
+    { bspc config top_padding 25; }
 
-#-- Node Managment --#
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+#        Node Managment       #
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 
 # close and kill
 mod4 + {_,ctrl} + shift + c
@@ -81,18 +50,11 @@ mod4 + {_,ctrl} + shift + c
 mod4 + space
 	bspc desktop -l next
 
-# if the current node is automatic, send it to the last manual, otherwise pull the last leaf
-mod4 + y
-	bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
+# # # # # # # # # # #
+#    Node State     #
+# # # # # # # # # # #
 
-# swap the current node and the biggest node
-mod4 + g
-	bspc node -s biggest
-
-#
-# state/flags
-#
-
+# toggle floating or fullscreen
 mod4 + {f, shift + f}
     state={floating,fullscreen}; \
     bspc query -N -n "focused.$\{state\}" && state=tiled; \
@@ -102,9 +64,9 @@ mod4 + {f, shift + f}
 mod4 + ctrl + {x,y,z}
 	bspc node -g {locked,sticky,private}
 
-#
-# focus/swap
-#
+# # # # # # # # # # #
+#    Focus/Move     #
+# # # # # # # # # # #
 
 # focus the node in the given direction
 mod4 + {_,shift + }{h,j,k,l}
@@ -126,11 +88,12 @@ mod4 + {o,i}
 
 # focus or send to the given desktop
 mod4 + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+  bspc {desktop -f, node -d} {1,2,3,4,5,6,7,8,9,10}
 
-#
-# preselect
-#
+
+# # # # # # # # # # #
+#    Preselect      #
+# # # # # # # # # # #
 
 # preselect the direction
 mod4 + ctrl + {h,j,k,l}
@@ -148,21 +111,9 @@ mod4 + ctrl + space
 mod4 + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
-#
-# resize tiled/floating
-#
-
-# expand the tiled space in the given direction
-mod4 + alt + {h,j,k,l}
-	bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
-
-# contract the tiled space in the given direction
-mod4 + alt + shift + {h,j,k,l}
-	bspc node {@east -r -10,@north -r +10,@south -r -10,@west -r +10}
-
-# Focus or move node to desktops
-mod4 + {_,shift + }{1-9,0}
-  bspc {desktop -f, node -d} {1,2,3,4,5,6,7,8,9,10}
+# # # # # # # # # # #
+#     Resizing      #
+# # # # # # # # # # #
 
 # Move or Resize node, BSPWM handles this for the most part
 mod4 + button{1-3}
@@ -171,5 +122,4 @@ mod4 + !button{1-3}
   bspc pointer -t %i %i
 mod4 + @button{1-3}
   bspc pointer -u
-
 
