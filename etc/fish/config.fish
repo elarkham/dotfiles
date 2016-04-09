@@ -64,3 +64,6 @@ end
 
 # Greeting
 set fish_greeting ""
+
+# Alias
+alias irssi "irssi --home=$HOME/etc/irssi"

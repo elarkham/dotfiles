@@ -18,28 +18,21 @@
 !---- Fonts -----
 !URxvt.font:              xft:Roboto Mono:regular:size=7
 !URxvt.font:              xft:Terminus:regular:size=7
-URxvt*font:               xft:Inconsolata\
-                              :style=Semibold\
-                              :pixelsize=16\
+URxvt*font:               xft:Terminus\
+                              :pixelsize=14\
                               :antialias=true:hinting=slight,\
-                          xft:unifont\
-                              :style=Medium\
-                              :antialias=false
+                          xft:Unifont
 
-URxvt*boldFont:           xft:Inconsolata\
-                             :style=bold\
-                             :pixelsize=16\
+URxvt*boldFont:           xft:Terminus\
+                             :pixelsize=14\
                              :antialias=true\
                              :hinting=slight,\
-                          xft:unifont\
-                             :pixelsize=14\
-                             :style=Medium\
-                             :antialias=false
+                          xft:Unifont
 
 
 !---- Font Settings ----
 *dpi:                    90
-Urxvt*dpi:               170
+Urxvt*dpi:               90
 *autohint:               0
 *lcdfilter:              lcddefault
 *hintstyle:              hintfull
@@ -68,4 +61,5 @@ URxvt.preeditType:       OverTheSpot
 !-----------------------------------------------------------------
 
 dzen2*font:              *-*-*-*-*-*-4-*-*-*-*-*-*-*
+URxvt*termName:          rxvt-unicode
 Xcursor.size:            32

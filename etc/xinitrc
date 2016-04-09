@@ -3,6 +3,7 @@
 xrdb     $HOME/etc/Xresources
 xset +fp /usr/share/fonts/local
 xset +fp $XDG_DATA_HOME/fonts
+xset -b
 
 xset fp rehash
 xset s off -dpms
@@ -14,7 +15,12 @@ redshift -l 43.194722:-70.875 &
 compton --config "$XDG_CONFIG_HOME/compton.conf" &
 
 xsetroot -cursor_name left_ptr
-hsetroot -solid "#848484"
+xinput set-prop 8 144 1.500000, 0.000000, 0.000000, 0.000000, 1.500000, 0.000000, 0.000000, 0.000000, 1.000000
+
+$HOME/etc/xrandr/lazarus.sh
+
+#hsetroot -solid "#848484"
+hsetroot -center $HOME/usr/pictures/Beserk_Battle.jpg -contrast 0.68 -gamma 0.4
 
 export SXHKD_SHELL="/bin/bash"
 sxhkd -f 100 -c $HOME/etc/sxhkd/sxhkdrc &
