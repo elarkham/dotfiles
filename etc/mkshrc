@@ -1,0 +1,45 @@
+## mksh Config
+# Author: Ethan Larkham
+# Date: May 9, 2016
+
+# Prompt
+export PS1=$'\1[\1\$(tput setaf 4)\1\$(hostname)\1\$(tput sgr0)]$ '
+export PS2='>'
+
+# History
+export HISTSIZE=10000
+export HISTFILE=~/var/mksh-history
+
+# Editor
+export EDITOR="nvim"
+export VISUAL="less"
+export PAGER="less"
+export PATH="/sbin:/usr/sbin:/home/ethan/bin/:$PATH"
+
+# Alias
+alias ls='ls --group-directories-first --time-style=+"%m.%d.%Y %I:%M" --color -F'
+alias ll='ls -l'
+alias la='ls -la'
+
+alias grep='grep --color=tty -d skip'
+alias cp="cp -i"
+alias df="df -h"
+
+alias steam="force_s3tc_enable=true steam"
+alias irssi="irssi --home=$HOME/etc/irssi"
+
+# Bindings
+bind =clear-screen
+
+# Man Colors
+man() {
+  env LESS_TERMCAP_mb=$'\E[01;31m' \
+  LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+  LESS_TERMCAP_me=$'\E[0m' \
+  LESS_TERMCAP_se=$'\E[0m' \
+  LESS_TERMCAP_so=$'\E[38;5;246m' \
+  LESS_TERMCAP_ue=$'\E[0m' \
+  LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+  man "$@"
+}
+:
