@@ -42,6 +42,9 @@ set ffs=unix,mac,dos
 " use JSX on all js files
 let g:jsx_ext_required = 0
 
+" fix mouse issues
+set mouse=r
+
 " -||Backups||-
 set noswapfile
 set nowritebackup
@@ -82,6 +85,9 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 " | ==== DISPLAY ==== |
 
 " -||General||-
+let base16colorspace=256
+set t_Co=256
+set background=dark
 colorscheme dougblack
 syntax on               " display syntax coloring
 
@@ -100,6 +106,7 @@ set modeline            " modelines are vim settings for a specfic file
 
 " Popup menu colors
 highlight Pmenu ctermfg=4 ctermbg=8
+
 
 " Cursor highlight colors
 " hi CursorLine term=bold cterm=bold guibg=White

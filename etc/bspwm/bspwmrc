@@ -22,7 +22,6 @@ bspc config urgent_border_color     "#d9534f"
 bspc config ignore_ewmh_focus       false
 bspc config focus_by_distance       true
 
-
 # Rules
 bspc rule -a '*' state=floating
 bspc rule -a Conky sticky=on manage=off layer=below
