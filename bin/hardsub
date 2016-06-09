@@ -11,12 +11,15 @@
 # They are not deleted automatically because you may want to use them again for a subsequent ffmpeg run
 
 DIRECTORY=$HOME/.fonts/MKV
-# Save $1 because `set` will overwrite it
+
 VIDEO_FILE="$(realpath "$1" )"
-SUBTITLES="$3"
-AUDIO="$4"
 OUTPUT="$(realpath "$2")"
 WD="$(pwd)"
+
+SUBTITLES="$3"
+AUDIO="$4"
+VIDEO="$5"
+
 declare -a FONTS
 declare -a SUBTITLES
 
@@ -36,13 +39,18 @@ if [ -z "$OUTPUT" ]; then
 fi
 
 if [ -z "$SUBTITLES" ]; then
-	echo "Warning: No Subtitle track file specified, will use 2"
-	SUBTITLES=2
+	echo "Warning: No Subtitle track file specified, will use 0"
+	SUBTITLES=0
 fi
 
 if [ -z "$AUDIO" ]; then
-	echo "Warning: No Audio track file specified, will use 1"
-	AUDIO=1
+	echo "Warning: No Audio track file specified, will use 0"
+	AUDIO=0
+fi
+
+if [ -z "$VIDEO" ]; then
+	echo "Warning: No Video track file specified, will use 0"
+	VIDEO=0
 fi
 
 # Use mkvmerge to get all our subtitles
@@ -72,7 +80,6 @@ while read LINE; do
 	# $LINE should look like:
 	# $1         $2 $3 $4   $5                             $6   $7    $8     $9   $10  $11
 	# Attachment ID 1: type 'application/x-truetype-font', size 58224 bytes, file name '9SALERNO.TTF'
-
 	if [ $1 = 'Attachment' ]; then
 		if [ $5 = "'application/x-truetype-font'," ]; then
 			ATTACH_ID=${3//[!0-9]/};
@@ -86,26 +93,43 @@ if [ ${#SUBTITLES[@]} -eq 0 ]; then
 	exit 1
 fi
 
-echo ${#SUBTITLES[@]} subtitle tracks found: ${SUBTITLES[*]}
 echo ${#FONTS[@]} font attachments found: ${FONTS[*]}
 
 #Extract all our subtitles
-for i in ${SUBTITLES[@]}; do
-	mkvextract tracks "$VIDEO_FILE" "$i":output.ass
-done
+#for i in ${SUBTITLES[@]}; do
+#	mkvextract tracks "$VIDEO_FILE" "$i":output.ass
+#done
+
+ffmpeg -y -i "$VIDEO_FILE" -map 0:s:"$SUBTITLES" output.ass
 
 #Extract all our fonts
 cd "$DIRECTORY"
-
-mkvextract attachments "$VIDEO_FILE" ${FONTS[*]}
-
+    mkvextract attachments "$VIDEO_FILE" ${FONTS[*]}
 cd "$WD"
+
 pwd
 
-#Prints ffmpegs input.
-echo "Running this line: ffmpeg -i "\""$VIDEO_FILE"\" -c:a libfdk_aac -b:a 384k -vcodec libx264 -pix_fmt yuv420p -profile:v baseline -preset slower -crf 18 -vf "scale=trunc(in_w/2)*2:trunc(in_h/2)*2" -vf "ass=output.ass" "$OUTPUT"
-echo
+#ffmpeg -i "$VIDEO_FILE" -map 0:"$VIDEO" -map 0:"$AUDIO" \
+#       -threads 0 \
+#       -vcodec libx264 -pix_fmt yuv420p -profile:v baseline -preset slower -crf 19 \
+#       -vf subtitles=output.ass \
+#       -c:a libfdk_aac -b:a 384k \
+#       -f mp4 "$OUTPUT"
 
-ffmpeg -i "$VIDEO_FILE" -map 0:0 -map 0:"$AUDIO"  -threads 0 -c:a libfdk_aac -b:a 384k -vcodec libx264 -pix_fmt yuv420p -profile:v baseline -preset slower -crf 18 -vf subtitles=output.ass "$OUTPUT"
+ffmpeg -i "$VIDEO_FILE" \
+       -map 0:v:"$VIDEO" \
+       -c:v libvpx-vp9 -pass 1 -b:v 0 -crf 33 \
+       -tile-columns 6 \
+       -deadline realtime -cpu-used 0 -threads 8 -speed 5 \
+       -an -y -f webm /dev/null
+
+ffmpeg -i "$VIDEO_FILE"  \
+       -map 0:v:"$VIDEO" -map 0:a:"$AUDIO" \
+       -c:v libvpx-vp9 -pass 2 -b:v 0 -crf 33 \
+       -tile-columns 6 -auto-alt-ref 1 -lag-in-frames 25 \
+       -deadline realtime -cpu-used 0 -threads 8 -speed 2 \
+       -vf subtitles=output.ass \
+       -c:a libopus -b:a 480k \
+       -f webm "$OUTPUT"
 
 exit 0

@@ -13,8 +13,8 @@
 *.color8:        #707070
 
 ! red
-*.color1:        #EC816C
-*.color9:        #F09B89
+*.color1:       #c83e3e
+*.color9:       #ee5f5f
 
 ! green
 *.color2:        #96C95C

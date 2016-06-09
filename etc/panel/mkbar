@@ -3,7 +3,7 @@
 ##Last Updated: Mar 01 2015
 
 # configuration variables
-refresh_rate=30                   # how often will the bar update
+refresh_rate=5                    # how often will the bar update
 datefmt="%d %b %I:%M"             # date time format
 alsactl=Master                    # which alsa channel to display
 
@@ -87,8 +87,13 @@ netip() {
             awk '{print $2}'
             ;;
         *)
-            # extern ip
-            cat "$HOME/var/externalip"
+            # external ip
+            IP=$(cat "$HOME/var/externalip")
+            if [[ "$IP" == "<html></html>" ]]; then
+                echo "${red} ${barfg}No Connection"
+            else
+                echo "${barmg}${barfg}$IP"
+            fi
             ;;
     esac
 }
@@ -134,7 +139,7 @@ while :; do
     buf="${buf}%{l} "
 #    buf="${buf}${barmg}$CONNECTION_ICON ${barfg}$ESSID"
     buf="${buf}${barmg}${barfg}$(netip local)  "
-    buf="${buf}${barmg}${barfg}$(netip)"
+    buf="${buf}$(netip)"
 
     buf="${buf}%{r}"
 #    buf="${buf}${barmg}${barfg} $(checkupdates | wc -l) "
