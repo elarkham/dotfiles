@@ -2,26 +2,6 @@
 ## Author: Ethan Larkham
 ## Date: March 31, 2016
 
-# # # # # # # # # # # # #
-#    Program Spawning   #
-# # # # # # # # # # # # #
-
-# Spawn Terminal
-mod4 + Return
-  urxvt
-
-# Application Launcher
-mod4 + r
-  dmenu_run -nb '#121010' -nf white -sb white -sf '#121010' 
-
-# Spawn xterm fallback
-mod4 + shift + n
-  xterm 
-
-# Printscreen
-Print
-  scrot -q 100
-
 #--#-#-#-#-#-#-#-#-#-#-#-#-#-#--#
 #    SXHKD+BSPWM Managment      #
 #--#-#-#-#-#-#-#-#-#-#-#-#-#-#--#
@@ -38,6 +18,26 @@ mod4 + shift + q
 mod4 + q
     { bspc config top_padding 25; }
 
+#-----------------------#
+#    Program Spawning   #
+#-----------------------#
+
+# Spawn Terminal
+mod4 + Return
+  urxvt
+
+# Application Launcher
+mod4 + r
+  dmenu_run -nb '#121010' -nf white -sb white -sf '#121010'
+
+# Spawn xterm fallback
+mod4 + shift + n
+  xterm
+
+# Printscreen
+Print
+  scrot -q 100
+
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 #        Node Managment       #
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
@@ -50,9 +50,9 @@ mod4 + {_,ctrl} + shift + c
 mod4 + space
 	bspc desktop -l next
 
-# # # # # # # # # # #
+#-------------------#
 #    Node State     #
-# # # # # # # # # # #
+#-------------------#
 
 # toggle floating or fullscreen
 mod4 + {f, shift + f}
@@ -64,9 +64,9 @@ mod4 + {f, shift + f}
 mod4 + ctrl + {x,y,z}
 	bspc node -g {locked,sticky,private}
 
-# # # # # # # # # # #
+#-------------------#
 #    Focus/Move     #
-# # # # # # # # # # #
+#-------------------#
 
 # focus the node in the given direction
 mod4 + {_,shift + }{h,j,k,l}
@@ -91,9 +91,9 @@ mod4 + {_,shift + }{1-9,0}
   bspc {desktop -f, node -d} {1,2,3,4,5,6,7,8,9,10}
 
 
-# # # # # # # # # # #
+#-------------------#
 #    Preselect      #
-# # # # # # # # # # #
+#-------------------#
 
 # preselect the direction
 mod4 + ctrl + {h,j,k,l}
@@ -111,9 +111,9 @@ mod4 + ctrl + space
 mod4 + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
-# # # # # # # # # # #
+#-------------------#
 #     Resizing      #
-# # # # # # # # # # #
+#-------------------#
 
 # Move or Resize node, BSPWM handles this for the most part
 #mod4 + button{1-3}
