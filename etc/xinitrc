@@ -12,11 +12,9 @@ wmname LG3D
 #ibus-daemon --xim &
 
 #redshift -l 43.194722:-70.875 &
-compton --config "$XDG_CONFIG_HOME/compton.conf" &
-
+compton --config "$HOME/etc/compton.conf" &
 xsetroot -cursor_name left_ptr
-
-$HOME/etc/xrandr/lazarus.sh
+#$HOME/etc/xrandr/lazarus.sh
 
 hsetroot -solid "#848484"
 #hsetroot -center $HOME/usr/pictures/Beserk_Battle.jpg -contrast 0.68 -gamma 0.4
