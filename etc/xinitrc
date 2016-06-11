@@ -11,7 +11,7 @@ wmname LG3D
 #ibus-daemon --xim &
 
 #redshift -l 43.194722:-70.875 &
-compton --config "$XDG_CONFIG_HOME/compton.conf" &
+compton --config "$HOME/etc/compton.conf" &
 
 xsetroot -cursor_name left_ptr
 hsetroot -solid "#848484"
