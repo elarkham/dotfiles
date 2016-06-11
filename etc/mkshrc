@@ -2,9 +2,30 @@
 # Author: Ethan Larkham
 # Date: May 9, 2016
 
+# Colors
+BLACK="$(   tput setaf 0 )"
+RED="$(     tput setaf 1 )"
+GREEN="$(   tput setaf 2 )"
+YELLOW="$(  tput setaf 3 )"
+BLUE="$(    tput setaf 4 )"
+MAGENTA="$( tput setaf 5 )"
+CYAN="$(    tput setaf 6 )"
+WHITE="$(   tput setaf 7 )"
+
+NO_COLOR="$(tput sgr0)"
+
 # Prompt
-export PS1=$'\1[\1\$(tput setaf 4)\1\$(hostname)\1\$(tput sgr0)]$ '
-export PS2='>'
+HOST="$(hostname)"
+
+if [ "$(id -u)" != "0" ]; then
+  PS1=$'[$BLUE$HOST$NO_COLOR]$ '
+  PS2='>'
+else
+  PS1=$'[$BLUE$HOST$NO_COLOR]$RED#$NO_COLOR '
+  PS2='>'
+fi
+
+export PS1 PS2
 
 # History
 export HISTSIZE=10000
@@ -25,7 +46,7 @@ alias grep='grep --color=tty -d skip'
 alias cp="cp -i"
 alias df="df -h"
 
-alias steam="force_s3tc_enable=true steam"
+#alias steam="force_s3tc_enable=true steam"
 alias irssi="irssi --home=$HOME/etc/irssi"
 
 # Bindings
