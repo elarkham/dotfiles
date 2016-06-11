@@ -1,6 +1,6 @@
 #!/bin/bash
 
-xrdb     $HOME/etc/Xresources
+xrdb $HOME/etc/Xresources
 xset +fp /usr/share/fonts/local
 xset +fp $XDG_DATA_HOME/fonts
 xset -b
@@ -8,7 +8,7 @@ xset -b
 xset fp rehash
 xset s off -dpms
 xset m 0 0
-#wmname LG3D
+wmname LG3D
 #ibus-daemon --xim &
 
 #redshift -l 43.194722:-70.875 &
