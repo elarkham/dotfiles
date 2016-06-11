@@ -82,6 +82,9 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 " | ==== DISPLAY ==== |
 
 " -||General||-
+let base16colorspace=256
+set t_Co=256
+set background=dark
 colorscheme dougblack
 syntax on               " display syntax coloring
 
