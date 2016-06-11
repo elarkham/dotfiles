@@ -18,48 +18,39 @@
 !---- Fonts -----
 !URxvt.font:              xft:Roboto Mono:regular:size=7
 !URxvt.font:              xft:Terminus:regular:size=7
-URxvt*font:               xft:Inconsolata\
-                              :style=Semibold\
-                              :pixelsize=16\
-                              :antialias=true:hinting=slight,\
-                          xft:unifont\
-                              :style=Medium\
-                              :antialias=false
-
-URxvt*boldFont:           xft:Inconsolata\
-                             :style=bold\
-                             :pixelsize=16\
+URxvt*font:               xft:Terminus\
+                             :pixelsize=14\
                              :antialias=true\
                              :hinting=slight,\
-                          xft:unifont\
+                          xft:Unifont
+
+URxvt*boldFont:           xft:Terminus\
                              :pixelsize=14\
-                             :style=Medium\
-                             :antialias=false
+                             :antialias=true\
+                             :hinting=slight,\
+                          xft:Unifont
 
 
 !---- Font Settings ----
-*dpi:                    90
-Urxvt*dpi:               170
-*autohint:               0
-*lcdfilter:              lcddefault
-*hintstyle:              hintfull
-*hinting:                1
-*antialias:              1
-*rgba:                   rgb
+URxvt*dpi:                    90
+URxvt*autohint:               0
+URxvt*lcdfilter:              lcddefault
+URxvt*hintstyle:              hintfull
+URxvt*hinting:                1
+URxvt*antialias:              1
+URxvt*rgba:                   rgb
 
 !---- General -----
-URxvt.cursorBlink:       true
-URxvt.scrollBar:         false
-URxvt.inputMethod:       ibus
-URxvt.preeditType:       OverTheSpot
+URxvt*cursorBlink:       true
+URxvt*scrollBar:         false
+URxvt*inputMethod:       ibus
+URxvt*preeditType:       OverTheSpot
 
-*colorUL:                #777777
-*imLocale:               en_US.UTF-8
-*scrollBar:              false
-*cursorBlink:            true
-*cursorUnderline:        false
-*savelines:              1024
-*shading:                60
+URxvt*colorUL:                #777777
+URxvt*imLocale:               en_US.UTF-8
+URxvt*cursorUnderline:        false
+URxvt*savelines:              1024
+URxvt*shading:                60
 
 !-¬
 !-----------------------------------------------------------------
@@ -68,4 +59,5 @@ URxvt.preeditType:       OverTheSpot
 !-----------------------------------------------------------------
 
 dzen2*font:              *-*-*-*-*-*-4-*-*-*-*-*-*-*
-Xcursor.size:            32
+URxvt*termName:          rxvt-unicode
+!Xcursor.size:            64

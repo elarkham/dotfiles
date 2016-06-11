@@ -3,19 +3,23 @@
 xrdb     $HOME/etc/Xresources
 xset +fp /usr/share/fonts/local
 xset +fp $XDG_DATA_HOME/fonts
+xset -b
 
 xset fp rehash
 xset s off -dpms
 xset m 0 0
-wmname LG3D
-ibus-daemon --xim &
+#wmname LG3D
+#ibus-daemon --xim &
 
-redshift -l 43.194722:-70.875 &
+#redshift -l 43.194722:-70.875 &
 compton --config "$XDG_CONFIG_HOME/compton.conf" &
 
 xsetroot -cursor_name left_ptr
-hsetroot -solid "#848484"
 
-export SXHKD_SHELL="/bin/bash"
+$HOME/etc/xrandr/lazarus.sh
+
+hsetroot -solid "#848484"
+#hsetroot -center $HOME/usr/pictures/Beserk_Battle.jpg -contrast 0.68 -gamma 0.4
+
 sxhkd -f 100 -c $HOME/etc/sxhkd/sxhkdrc &
 exec bspwm -c $HOME/etc/bspwm/bspwmrc

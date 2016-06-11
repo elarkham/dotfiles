@@ -4,8 +4,9 @@
 [push]
   default = current
 [core]
-  autocrlf = input
-  safecrlf = true
+	autocrlf = input
+	safecrlf = true
+	pager = less -FXRS
 [alias]
   co = checkout
   ci = commit

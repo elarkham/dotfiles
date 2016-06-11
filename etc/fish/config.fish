@@ -9,6 +9,7 @@ env -i HOME=$HOME dash -l -c printenv | sed -e '/PATH/s/:/ /g;s/=/ /;s/^/set -x 
 set -x PATH $PATH $HOME/bin
 set -x EDITOR "nvim"
 set -x VISUAL "nvim"
+set -x ANDROID_HOME "/opt/android-sdk"
 
 # Edit Mode
 ##fish_vi_mode
@@ -64,3 +65,6 @@ end
 
 # Greeting
 set fish_greeting ""
+
+# Alias
+alias irssi "irssi --home=$HOME/etc/irssi"
