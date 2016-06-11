@@ -12,7 +12,7 @@ mod4 + Return
 
 # Application Launcher
 mod4 + r
-  dmenu_run -h 15 -nb '#121010' -nf white -sb white -sf '#121010' -hist "$XDG_DATA_HOME"/dmenu.history
+  dmenu_run -nb '#121010' -nf white -sb white -sf '#121010' 
 
 # Spawn xterm fallback
 mod4 + shift + n
@@ -116,10 +116,10 @@ mod4 + ctrl + shift + space
 # # # # # # # # # # #
 
 # Move or Resize node, BSPWM handles this for the most part
-mod4 + button{1-3}
-  bspc pointer -g {move,resize_side,resize_corner}
-mod4 + !button{1-3}
-  bspc pointer -t %i %i
-mod4 + @button{1-3}
-  bspc pointer -u
+#mod4 + button{1-3}
+#  bspc pointer -g {move,resize_side,resize_corner}
+#mod4 + !button{1-3}
+#  bspc pointer -t %i %i
+#mod4 + @button{1-3}
+#  bspc pointer -u
 
