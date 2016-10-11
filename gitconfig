@@ -1,0 +1,19 @@
+[user]
+  name = Ethan Larkham
+  email = ethanlarkham@gmail.com
+[push]
+  default = current
+[core]
+  autocrlf = input
+  safecrlf = true
+  pager = less -FXRS
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+[color]
+  ui = true

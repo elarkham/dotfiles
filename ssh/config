@@ -1,0 +1,49 @@
+ServerAliveInterval 100
+
+Host cthulhu
+    HostName larkham.li
+    Port 443
+    User ethan
+
+Host cthulhu-local
+    HostName 192.168.1.115
+    Port 443
+    ForwardX11 yes
+    User ethan
+
+Host pudge
+    HostName 192.168.2.119
+    Port 443
+    user ethan
+
+Host agate
+    HostName agate.cs.unh.edu
+    User ehl2000
+
+Host sal
+    ProxyCommand ssh -q cthulhu nc 192.168.1.33 22
+    user ethan
+
+Host marvin
+    ProxyCommand ssh -q cthulhu nc localhost 19999
+    user shea
+
+Host it403
+    HostName wcit.cs.unh.edu
+    User ehl2000
+
+Host agate
+    HostName agate.cs.unh.edu
+    User ehl2000
+
+Host clo
+    HostName 104.131.112.180
+    User ethan
+
+Host rpi
+  HostName 192.168.1.23
+  User root
+
+Host rpi-remote
+  ProxyCommand ssh -q cthulhu nc 192.168.1.23 22
+  User root

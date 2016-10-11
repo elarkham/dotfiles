@@ -1,4 +1,0 @@
-#!/bin/bash
-# pipe in ugly json and pipe out pretty json
-
-python -m json.tool

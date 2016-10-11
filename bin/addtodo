@@ -1,2 +1,0 @@
-#! /bin/env bash
-echo "$1" >> "/home/ethan/var/todo"
