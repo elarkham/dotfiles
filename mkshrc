@@ -35,7 +35,6 @@ export HISTFILE=~/var/mksh-history
 export EDITOR="nvim"
 export VISUAL="less"
 export PAGER="less"
-export PATH="/sbin:/usr/sbin:/home/ethan/bin/:$PATH"
 
 # Alias
 alias ls='ls --group-directories-first --time-style=+"%m.%d.%Y %I:%M" --color -F'
@@ -43,13 +42,12 @@ alias ll='ls -l'
 alias la='ls -la'
 
 alias grep='grep --color=tty -d skip'
-alias cp="cp -i"
-alias df="df -h"
 alias ip="ip -c"
+alias less="less -R"
+
+alias df="df -h"
+alias cp="cp -i"
 alias dl="youtube-dl"
-alias reboot="sudo reboot"
-alias sleep="sudo pm-hibernate"
-alias suspend="sudo pm-suspend"
 
 #alias steam="force_s3tc_enable=true steam"
 alias irssi="irssi --home=$HOME/etc/irssi"
