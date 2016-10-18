@@ -24,7 +24,7 @@ compton --config "$HOME/etc/compton.conf" &
 #####################
 ###- Root Window -###
 #####################
-feh --bg-scale $HOME/usr/images/wallpapers/abstract/space-clouds.png
+hsetroot -fill $HOME/usr/images/wallpapers/abstract/space-clouds.png
 #xsetroot -solid "#848484"
 #hsetroot -solid "#848484"
 #hsetroot -center $HOME/usr/pictures/Beserk_Battle.jpg -contrast 0.68 -gamma 0.4
