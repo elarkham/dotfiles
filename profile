@@ -7,4 +7,6 @@
 if [ ! -d /tmp/downloads ];       then mkdir $HOME/tmp/downloads;       fi
 if [ ! -d /tmp/downloads/$USER ]; then mkdir $HOME/tmp/downloads/$USER; fi
 
-source ~/.bashrc
+# Exports
+export PATH="$HOME/bin:/sbin:/usr/sbin:$PATH"
+export MANPATH="$HOME/var/man:$MANPATH"
